@@ -9,9 +9,11 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 public class MainActivity extends AppCompatActivity {
 
+    RelativeLayout initial_screen_content;
     Button button_signin, button_signup;
     LinearLayout default_buttons, popup_signup, popup_signin;
     ImageView button_close_signup, button_close_signin;
@@ -20,6 +22,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        initial_screen_content = findViewById(R.id.initial_screen_content);
+
+        Animation animation_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fadein);
+        initial_screen_content.startAnimation(animation_in);
 
         button_signin = findViewById(R.id.button_signin);
         button_signup = findViewById(R.id.button_signup);
