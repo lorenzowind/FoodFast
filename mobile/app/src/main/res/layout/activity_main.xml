@@ -30,7 +30,7 @@
             <LinearLayout
                 android:layout_width="120dp"
                 android:layout_height="120dp"
-                android:background="#fff">
+                android:background="@drawable/background_logo">
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -68,7 +68,7 @@
                 android:textSize="24sp"
                 android:textStyle="bold"
                 android:textColor="#fff"
-                android:background="#36d2ee"/>
+                android:background="@drawable/button_signup"/>
 
             <Button
                 android:id="@+id/button_signin"
@@ -79,7 +79,7 @@
                 android:textSize="24sp"
                 android:textStyle="bold"
                 android:textColor="#36d2ee"
-                android:background="#fff"
+                android:background="@drawable/button_signin"
                 android:layout_marginTop="20dp"/>
         </LinearLayout>
 
@@ -90,12 +90,13 @@
         android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#fff"
+        android:background="@drawable/background_popup"
         android:layout_alignParentBottom="true"
         android:paddingHorizontal="40dp"
         android:orientation="vertical">
 
         <ImageView
+            android:id="@+id/button_close_signup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/icon_arrow"
@@ -117,23 +118,29 @@
                 android:breakStrategy="simple"
                 android:layout_weight="1"/>
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="70dp"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <RelativeLayout
-                    android:id="@+id/button_upload"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#36d2ee"
-                    android:padding="10dp"
-                    android:layout_centerHorizontal="true">
+                    android:layout_marginBottom="5dp">
 
-                    <ImageView
-                        android:layout_height="30dp"
-                        android:layout_width="30dp"
-                        android:src="@drawable/icon_camera" />
+                    <RelativeLayout
+                        android:id="@+id/button_upload"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/background_profile"
+                        android:padding="15dp"
+                        android:layout_centerHorizontal="true">
+
+                        <ImageView
+                            android:layout_height="30dp"
+                            android:layout_width="30dp"
+                            android:src="@drawable/icon_camera" />
+                    </RelativeLayout>
                 </RelativeLayout>
 
                 <TextView
@@ -142,9 +149,8 @@
                     android:text="Upload picture"
                     android:textColor="#000"
                     android:textSize="16sp"
-                    android:alpha="0.5"
-                    android:layout_alignParentBottom="true"/>
-            </RelativeLayout>
+                    android:alpha="0.5"/>
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -199,7 +205,7 @@
                         android:layout_width="match_parent"
                         android:autofillHints=""
                         android:hint="Email"
-                        android:inputType="text"
+                        android:inputType="textEmailAddress"
                         android:backgroundTint="#36d2ee"
                         android:paddingStart="45dp"
                         android:paddingEnd="0dp"
@@ -224,7 +230,7 @@
                         android:layout_width="match_parent"
                         android:autofillHints=""
                         android:hint="Password"
-                        android:inputType="text"
+                        android:inputType="textPassword"
                         android:backgroundTint="#36d2ee"
                         android:paddingStart="45dp"
                         android:paddingEnd="0dp"
@@ -241,7 +247,7 @@
                     android:textSize="24sp"
                     android:textStyle="bold"
                     android:textColor="#fff"
-                    android:background="#36d2ee"
+                    android:background="@drawable/button_signup"
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="40dp"/>
 
@@ -254,12 +260,13 @@
         android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#fff"
+        android:background="@drawable/background_popup"
         android:layout_alignParentBottom="true"
         android:paddingHorizontal="40dp"
         android:orientation="vertical">
 
         <ImageView
+            android:id="@+id/button_close_signin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/icon_arrow"
@@ -289,8 +296,8 @@
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="#36d2ee"
-                    android:padding="10dp"
+                    android:background="@drawable/background_profile"
+                    android:padding="15dp"
                     android:layout_centerHorizontal="true">
 
                     <ImageView
@@ -328,7 +335,7 @@
                         android:layout_width="match_parent"
                         android:autofillHints=""
                         android:hint="Password"
-                        android:inputType="text"
+                        android:inputType="textPassword"
                         android:backgroundTint="#36d2ee"
                         android:paddingStart="45dp"
                         android:paddingEnd="0dp"
@@ -353,7 +360,7 @@
                     android:textSize="24sp"
                     android:textStyle="bold"
                     android:textColor="#fff"
-                    android:background="#36d2ee"
+                    android:background="@drawable/button_signup"
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="20dp"/>
             </LinearLayout>
@@ -374,32 +381,33 @@
                 android:textAlignment="center"
                 android:layout_marginBottom="20dp"/>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginBottom="40dp"
-                android:weightSum="3">
+                android:layout_marginBottom="40dp">
 
                 <ImageView
                     android:layout_height="50dp"
                     android:layout_width="50dp"
                     android:src="@drawable/icon_google"
                     android:contentDescription="Google Icon"
-                    android:layout_weight="1"/>
+                    android:layout_alignParentStart="true"/>
+
                 <ImageView
                     android:layout_height="50dp"
                     android:layout_width="50dp"
                     android:src="@drawable/icon_facebook"
                     android:contentDescription="Facebook Icon"
-                    android:layout_weight="1"/>
+                    android:layout_centerHorizontal="true"/>
+
                 <ImageView
                     android:layout_height="50dp"
                     android:layout_width="50dp"
                     android:src="@drawable/icon_twitter"
                     android:contentDescription="Twitter Icon"
-                    android:layout_weight="1"/>
-            </LinearLayout>
+                    android:layout_alignParentEnd="true"/>
+            </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
 
