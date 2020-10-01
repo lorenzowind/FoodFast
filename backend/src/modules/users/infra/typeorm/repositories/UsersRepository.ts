@@ -1,4 +1,5 @@
-import { getRepository, Repository, Not } from 'typeorm';
+import { getRepository, Repository } from 'typeorm';
+import { v4 } from 'uuid';
 
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 
@@ -27,6 +28,8 @@ class UsersRepository implements IUsersRepository {
 
   public async create(userData: ICreateUserDTO): Promise<User> {
     const user = this.ormRepository.create(userData);
+
+    Object.assign(user, { id: v4() });
 
     await this.ormRepository.save(user);
 
