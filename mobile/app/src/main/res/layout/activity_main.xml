@@ -140,7 +140,7 @@
                         <ImageView
                             android:layout_height="30dp"
                             android:layout_width="30dp"
-                            android:src="@drawable/icon_camera" />
+                            android:src="@drawable/ic_camera" />
                     </RelativeLayout>
                 </RelativeLayout>
 
@@ -172,11 +172,12 @@
                     <ImageView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:layout_marginTop="3dp"
-                        android:src="@drawable/icon_user"
+                        android:layout_marginTop="7dp"
+                        android:src="@drawable/ic_user"
                         android:contentDescription="Username icon" />
 
                     <EditText
+                        android:id="@+id/name_signup"
                         android:layout_height="50dp"
                         android:layout_width="match_parent"
                         android:autofillHints=""
@@ -198,10 +199,11 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_marginTop="7dp"
-                        android:src="@drawable/icon_mail"
+                        android:src="@drawable/ic_mail"
                         android:contentDescription="Mail icon" />
 
                     <EditText
+                        android:id="@+id/mail_signup"
                         android:layout_height="50dp"
                         android:layout_width="match_parent"
                         android:autofillHints=""
@@ -222,11 +224,12 @@
                     <ImageView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:src="@drawable/icon_lock"
-                        android:layout_marginTop="5dp"
+                        android:src="@drawable/ic_lock"
+                        android:layout_marginTop="7dp"
                         android:contentDescription="Password icon" />
 
                     <EditText
+                        android:id="@+id/password_signup"
                         android:layout_height="50dp"
                         android:layout_width="match_parent"
                         android:autofillHints=""
@@ -304,7 +307,7 @@
                     <ImageView
                         android:layout_height="30dp"
                         android:layout_width="30dp"
-                        android:src="@drawable/icon_profile_user" />
+                        android:src="@drawable/ic_user" />
                 </RelativeLayout>
             </RelativeLayout>
         </LinearLayout>
@@ -327,11 +330,12 @@
                     <ImageView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:src="@drawable/icon_lock"
+                        android:src="@drawable/ic_lock"
                         android:layout_marginTop="5dp"
                         android:contentDescription="Password icon" />
 
                     <EditText
+                        android:id="@+id/password_signin"
                         android:layout_height="50dp"
                         android:layout_width="match_parent"
                         android:autofillHints=""
@@ -365,50 +369,6 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="20dp"/>
             </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="or sign in with"
-                android:textColor="#000"
-                android:alpha="0.5"
-                android:textSize="16sp"
-                android:textAlignment="center"
-                android:layout_marginBottom="20dp"/>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="40dp">
-
-                <ImageView
-                    android:layout_height="50dp"
-                    android:layout_width="50dp"
-                    android:src="@drawable/icon_google"
-                    android:contentDescription="Google Icon"
-                    android:layout_alignParentStart="true"/>
-
-                <ImageView
-                    android:layout_height="50dp"
-                    android:layout_width="50dp"
-                    android:src="@drawable/icon_facebook"
-                    android:contentDescription="Facebook Icon"
-                    android:layout_centerHorizontal="true"/>
-
-                <ImageView
-                    android:layout_height="50dp"
-                    android:layout_width="50dp"
-                    android:src="@drawable/icon_twitter"
-                    android:contentDescription="Twitter Icon"
-                    android:layout_alignParentEnd="true"/>
-            </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
 
