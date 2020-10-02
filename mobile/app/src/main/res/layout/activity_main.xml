@@ -112,46 +112,46 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="70dp"
-                android:text="New\nAccount"
+                android:text="Welcome\nSign Up now"
                 android:textColor="#000"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 android:breakStrategy="simple"
                 android:layout_weight="1"/>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+<!--            <LinearLayout-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="vertical">-->
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp">
+<!--                <RelativeLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginBottom="5dp">-->
 
-                    <RelativeLayout
-                        android:id="@+id/button_upload"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/background_profile"
-                        android:padding="15dp"
-                        android:layout_centerHorizontal="true">
+<!--                    <RelativeLayout-->
+<!--                        android:id="@+id/button_upload"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:background="@drawable/background_profile"-->
+<!--                        android:padding="15dp"-->
+<!--                        android:layout_centerHorizontal="true">-->
 
-                        <ImageView
-                            android:layout_height="30dp"
-                            android:layout_width="30dp"
-                            android:src="@drawable/ic_camera" />
-                    </RelativeLayout>
-                </RelativeLayout>
+<!--                        <ImageView-->
+<!--                            android:layout_height="30dp"-->
+<!--                            android:layout_width="30dp"-->
+<!--                            android:src="@drawable/ic_camera" />-->
+<!--                    </RelativeLayout>-->
+<!--                </RelativeLayout>-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Upload picture"
-                    android:textColor="#000"
-                    android:textSize="16sp"
-                    android:alpha="0.5"/>
-            </LinearLayout>
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Upload picture"-->
+<!--                    android:textColor="#000"-->
+<!--                    android:textSize="16sp"-->
+<!--                    android:alpha="0.5"/>-->
+<!--            </LinearLayout>-->
         </LinearLayout>
 
         <LinearLayout
@@ -284,32 +284,32 @@
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_height="70dp"
-                android:text="Welcome back\nlorenzowind"
+                android:layout_height="40dp"
+                android:text="Sign In"
                 android:textColor="#000"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 android:breakStrategy="simple"
                 android:layout_weight="1"/>
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="70dp"
-                android:orientation="vertical">
+<!--            <RelativeLayout-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="70dp"-->
+<!--                android:orientation="vertical">-->
 
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/background_profile"
-                    android:padding="15dp"
-                    android:layout_centerHorizontal="true">
+<!--                <RelativeLayout-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:background="@drawable/background_profile"-->
+<!--                    android:padding="15dp"-->
+<!--                    android:layout_centerHorizontal="true">-->
 
-                    <ImageView
-                        android:layout_height="30dp"
-                        android:layout_width="30dp"
-                        android:src="@drawable/ic_user" />
-                </RelativeLayout>
-            </RelativeLayout>
+<!--                    <ImageView-->
+<!--                        android:layout_height="30dp"-->
+<!--                        android:layout_width="30dp"-->
+<!--                        android:src="@drawable/ic_user" />-->
+<!--                </RelativeLayout>-->
+<!--            </RelativeLayout>-->
         </LinearLayout>
 
         <LinearLayout
@@ -321,6 +321,32 @@
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_mail"
+                        android:layout_marginTop="5dp"
+                        android:contentDescription="Mail icon" />
+
+                    <EditText
+                        android:id="@+id/mail_signin"
+                        android:layout_height="50dp"
+                        android:layout_width="match_parent"
+                        android:autofillHints=""
+                        android:hint="Mail"
+                        android:inputType="textEmailAddress"
+                        android:backgroundTint="#36d2ee"
+                        android:paddingStart="45dp"
+                        android:paddingEnd="0dp"
+                        android:textSize="20sp"
+                        android:paddingBottom="15dp"/>
+                </RelativeLayout>
 
                 <RelativeLayout
                     android:layout_width="wrap_content"

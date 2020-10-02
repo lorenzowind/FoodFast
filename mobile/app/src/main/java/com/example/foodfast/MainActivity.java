@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -21,20 +22,22 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
-
     RelativeLayout initial_screen_content;
     Button button_signin, button_signup, button_signup_popup, button_signin_popup;
     LinearLayout default_buttons, popup_signup, popup_signin;
     ImageView button_close_signup, button_close_signin;
-    EditText name_signup, mail_signup, password_signup, password_signin;
+    EditText name_signup, mail_signup, password_signup, mail_signin, password_signin;
 
     String base_url = "http://10.0.2.2:3333/";
+
+    JSONObject auth_data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
         name_signup = findViewById(R.id.name_signup);
         mail_signup = findViewById(R.id.mail_signup);
         password_signup = findViewById(R.id.password_signup);
+
+        mail_signin = findViewById(R.id.mail_signin);
         password_signin = findViewById(R.id.password_signin);
 
         button_signup.setOnClickListener(new View.OnClickListener() {
@@ -119,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
                 String password = password_signup.getText().toString();
 
                 if (name.equals("") || email.equals("") || password.equals("")) {
-                    Toast.makeText(getApplicationContext(), "Preencha todos os dados", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Fill in all blanks", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -135,16 +140,67 @@ public class MainActivity extends AppCompatActivity {
                 JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, base_url + "users", parameters, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Toast.makeText(getApplicationContext(), "Usuário criado com sucesso", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "User created successfully", Toast.LENGTH_SHORT).show();
                         button_close_signup.performClick();
                     }
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), "Erro na criação de usuário", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "An error occurred to sign up", Toast.LENGTH_SHORT).show();
                         button_close_signup.performClick();
                     }
                 });
+
+                requestQueue.add(jsObjRequest);
+            }
+        });
+
+        button_signin_popup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String email = mail_signin.getText().toString();
+                String password = password_signin.getText().toString();
+
+                if (email.equals("") || password.equals("")) {
+                    Toast.makeText(getApplicationContext(), "Fill in all blanks", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                Map<String, String> params = new HashMap();
+                params.put("email", email);
+                params.put("password", password);
+
+                JSONObject parameters = new JSONObject(params);
+
+                RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+
+                JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, base_url + "sessions", parameters, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_SHORT).show();
+
+                        try {
+                            auth_data = new JSONObject(response.toString());
+                        } catch (JSONException e) {
+                            Toast.makeText(getApplicationContext(), "An error occurred", Toast.LENGTH_SHORT).show();
+                        }
+                        button_close_signin.performClick();
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplicationContext(), "An error occurred to sign in", Toast.LENGTH_SHORT).show();
+                        button_close_signin.performClick();
+                    }
+                });
+//                {
+//                    @Override
+//                    public Map<String, String> getHeaders() throws AuthFailureError {
+//                        Map<String, String> headers = new HashMap();
+//                        headers.put("Authorization", "Bearer " + accesstoken);
+//                        return headers;
+//                    }
+//                };
 
                 requestQueue.add(jsObjRequest);
             }
