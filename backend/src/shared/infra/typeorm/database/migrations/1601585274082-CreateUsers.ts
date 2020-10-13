@@ -26,6 +26,10 @@ export default class CreateUsers1601585274082 implements MigrationInterface {
             type: 'varchar(255)',
           },
           {
+            name: 'position',
+            type: "enum('user', 'admin')",
+          },
+          {
             name: 'created_at',
             type: 'timestamp',
             default: 'current_timestamp',

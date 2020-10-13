@@ -162,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
                 String password = password_signin.getText().toString();
 
                 if (email.equals("") || password.equals("")) {
-                    Toast.makeText(getApplicationContext(), "Fill in all blanks", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Fill all blank spaces", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
