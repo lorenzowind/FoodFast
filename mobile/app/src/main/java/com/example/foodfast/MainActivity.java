@@ -2,6 +2,9 @@ package com.example.foodfast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -35,14 +38,22 @@ public class MainActivity extends AppCompatActivity {
     ImageView button_close_signup, button_close_signin;
     EditText name_signup, mail_signup, password_signup, mail_signin, password_signin;
 
-    String base_url = "http://10.0.2.2:3333/";
+    String base_url = "http://ec2-18-222-144-152.us-east-2.compute.amazonaws.com/";
 
-    JSONObject auth_data;
+    JSONObject auth_data_response;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        SharedPreferences preferences = getApplicationContext().getSharedPreferences("@FoodFast",Context.MODE_PRIVATE);
+        String retrived_token  = preferences.getString("TOKEN","");
+
+        if (!retrived_token.equals("")) {
+            Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
+            startActivity(intent);
+        }
 
         initial_screen_content = findViewById(R.id.initial_screen_content);
 
@@ -177,10 +188,15 @@ public class MainActivity extends AppCompatActivity {
                 JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, base_url + "sessions", parameters, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_SHORT).show();
-
                         try {
-                            auth_data = new JSONObject(response.toString());
+                            auth_data_response = new JSONObject(response.toString());
+
+                            SharedPreferences preferences = getApplicationContext().getSharedPreferences("@FoodFast", Context.MODE_PRIVATE);
+                            preferences.edit().putString("TOKEN", auth_data_response.getString("token")).apply();
+                            preferences.edit().putString("USER", auth_data_response.getString("user")).apply();
+
+                            Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
+                            startActivity(intent);
                         } catch (JSONException e) {
                             Toast.makeText(getApplicationContext(), "An error occurred", Toast.LENGTH_SHORT).show();
                         }

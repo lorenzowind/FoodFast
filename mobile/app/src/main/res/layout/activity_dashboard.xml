@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/layout_menu"
+        android:visibility="gone"
+        layout="@layout/activity_menu"/>
+
+    <RelativeLayout
+        android:id="@+id/layout_dashboard"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/layout_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="20dp">
+
+            <ImageView
+                android:id="@+id/icon_profile_username"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/ic_profile"/>
+
+            <ImageView
+                android:id="@+id/button_menu_dashboard"
+                android:layout_alignParentRight="true"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/ic_menu"/>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_sub_header"
+            android:layout_below="@id/layout_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="FoodFast"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/text_username_dashboard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hi user"
+                android:textColor="#000"
+                android:textStyle="bold"
+                android:textSize="24sp"/>
+
+    <!--        <TextView-->
+    <!--            android:layout_marginTop="20dp"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:text="What would you like to cook today?"-->
+    <!--            android:textColor="#000"-->
+    <!--            android:textStyle="bold"-->
+    <!--            android:textSize="20sp"/>-->
+        </LinearLayout>
+    </RelativeLayout>
+
+<!--    <LinearLayout-->
+<!--        android:id="@+id/layout_footer"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginHorizontal="20dp"-->
+<!--        android:layout_marginBottom="20dp"-->
+<!--        android:orientation="vertical">-->
+
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Want to search something specific?"-->
+<!--            android:textColor="#000"-->
+<!--            android:textStyle="bold"-->
+<!--            android:textSize="20sp"/>-->
+<!--    </LinearLayout>-->
+
+</RelativeLayout>
