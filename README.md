@@ -21,14 +21,14 @@
 - Vinícius Andrade Perrone (Analista)
 ## Como baixar?
 - Para baixar o projeto execute o comando:
-```
+```bash
 // Clonar o repositório da aplicação
 $ git clone https://github.com/lorenzowind/FoodFast.git
 ```
 ## Como instalar?
 1. Para rodar o backend siga os seguintes passos:
 - Navegue até a pasta do backend e instale as dependências:
-```
+```bash
 // Navegar até a pasta backend
 $ cd backend
 
@@ -36,14 +36,14 @@ $ cd backend
 $ yarn
 ```
 - Instale as imagens Docker do MySQL, MongoDB, Redis e Adminer usando docker-compose:
-```
+```bash
 // Rodar as imagens do Docker
 $ docker-compose up -d
 ```
 - Crie um arquivo chamado .env com base no .env.example e insira as credenciais da AWS;
 - Crie um arquivo chamado .ormconfig.json com base no .ormconfig.example.json e insira o host e porta do MySQL e MongoDB de acordo com as imagens Docker instaladas anteriormente, além de trocar o destinatário src por dist e .ts por .js;
 - Configure as credenciais da imagem Docker do MySQL através dos seguintes comandos:
-```
+```bash
 // Entrar no bash da imagem MySQL
 $ docker exec -it NOME_DA_IMAGEM bash
 // Entrar no root da imagem MySQL
@@ -52,23 +52,23 @@ $ mysql -u root -p
 $ ALTER USER root IDENTIFIED WITH mysql_native_password BY ‘SENHA_DO_USUÁRIO_ROOT’;
 ```
 - Rode as migrations do banco de dados através do comando:
-```
+```bash
 // Rodar as migrations
 $ node_modules/.bin/typeorm migration:run
 ```
 - Adicione configuração de não auto-reinicialização para cada imagem Docker através do comando:
-```
+```bash
 // Alterar a configuração das imagens Docker
 $ docker update --restart=unless-stopped ID_DA_IMAGEM
 ```
 - Inicie o servidor através do comando:
-```
+```bash
 // Iniciar o servidor
 $ yarn dev:server
 ```
 2. Para instalar a aplicação em algum dispositivo siga os seguintes passos:
 - Navegue até a localização do arquivo .apk e abra no dispositivo
-```
+```bash
 // Navegar até o arquivo .apk
 $ cd mobile/app/build/outputs/apk
 ```
