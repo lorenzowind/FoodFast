@@ -32,10 +32,6 @@ services:
   foodfast_mongodb:
     image: mongo
     container_name: foodfast_mongodb
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: root
-      MONGO_INITDB_DATABASE: foodfast
     ports:
       - 27017:27017
 
