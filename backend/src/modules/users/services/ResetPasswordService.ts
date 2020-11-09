@@ -8,8 +8,6 @@ import IUserTokensRepository from '../repositories/IUserTokensRepository';
 
 import IHashProvider from '../providers/HashProvider/models/IHashProvider';
 
-// import User from '../infra/typeorm/entities/User';
-
 interface IRequest {
   token: string;
   password: string;

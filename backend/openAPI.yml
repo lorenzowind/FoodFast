@@ -299,7 +299,13 @@ paths:
                     type: string
                     format: email
                     example: "newuser@email.com"
+                  old_password:
+                    type: string
+                    example: "user password"
                   password:
+                    type: string
+                    example: "new user password"
+                  password_confirmation:
                     type: string
                     example: "new user password"
       responses:
