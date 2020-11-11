@@ -20,9 +20,11 @@ class CreateCategoryService {
   ) {}
 
   public async execute({ name }: ICreateCategoryDTO): Promise<Category> {
-    const checkCatgoryExists = await this.categoriesRepository.findByName(name);
+    const checkCategoryExists = await this.categoriesRepository.findByName(
+      name,
+    );
 
-    if (checkCatgoryExists) {
+    if (checkCategoryExists) {
       throw new AppError('Category name already in use.');
     }
 

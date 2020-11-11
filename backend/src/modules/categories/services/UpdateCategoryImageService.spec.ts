@@ -8,7 +8,7 @@ import UpdateCategoryImageService from './UpdateCategoryImageService';
 
 let fakeCategoriesRepository: FakeCategoriesRepository;
 
-let dakeStorageProvider: FakeStorageProvider;
+let fakeStorageProvider: FakeStorageProvider;
 
 let updateCategoryImage: UpdateCategoryImageService;
 
@@ -16,11 +16,11 @@ describe('UpdateCategoryImage', () => {
   beforeEach(() => {
     fakeCategoriesRepository = new FakeCategoriesRepository();
 
-    dakeStorageProvider = new FakeStorageProvider();
+    fakeStorageProvider = new FakeStorageProvider();
 
     updateCategoryImage = new UpdateCategoryImageService(
       fakeCategoriesRepository,
-      dakeStorageProvider,
+      fakeStorageProvider,
     );
   });
 

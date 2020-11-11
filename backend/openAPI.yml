@@ -1011,6 +1011,7 @@ paths:
           $ref:  '#/components/responses/IncorrectToken'
         '401':
           $ref: '#/components/responses/UnauthorizedError'
+  /user-favorites/{id}:
     delete:
       summary: Deletes an user favorite.
       parameters:
