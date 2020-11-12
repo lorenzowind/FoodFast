@@ -4,43 +4,42 @@ import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/F
 
 import FakeUsersRepository from '@modules/users/repositories/fakes/FakeUsersRepository';
 import FakeCategoriesRepository from '@modules/categories/repositories/fakes/FakeCategoriesRepository';
-import FakeUserFavoritesRepository from '@modules/user-favorites/repositories/fakes/FakeUserFavoritesRepository';
-import FakeRecipesRepository from '../repositories/fakes/FakeRecipesRepository';
+import FakeRecipesRepository from '@modules/recipes/repositories/fakes/FakeRecipesRepository';
+import FakeUserFavoritesRepository from '../repositories/fakes/FakeUserFavoritesRepository';
 
-import DeleteRecipeService from './DeleteRecipeService';
+import DeleteUserFavoriteService from './DeleteUserFavoriteService';
 
 let fakeCacheProvider: FakeCacheProvider;
 
 let fakeUsersRepository: FakeUsersRepository;
 let fakeCategoriesRepository: FakeCategoriesRepository;
-let fakeUserFavoritesRepository: FakeUserFavoritesRepository;
 let fakeRecipesRepository: FakeRecipesRepository;
+let fakeUserFavoritesRepository: FakeUserFavoritesRepository;
 
-let deleteRecipe: DeleteRecipeService;
+let deleteUserFavorite: DeleteUserFavoriteService;
 
-describe('DeleteRecipe', () => {
+describe('DeleteUserRecipe', () => {
   beforeEach(() => {
-    fakeUsersRepository = new FakeUsersRepository();
-    fakeCategoriesRepository = new FakeCategoriesRepository();
-    fakeUserFavoritesRepository = new FakeUserFavoritesRepository();
-    fakeRecipesRepository = new FakeRecipesRepository();
-
     fakeCacheProvider = new FakeCacheProvider();
 
-    deleteRecipe = new DeleteRecipeService(
+    fakeUsersRepository = new FakeUsersRepository();
+    fakeCategoriesRepository = new FakeCategoriesRepository();
+    fakeRecipesRepository = new FakeRecipesRepository();
+    fakeUserFavoritesRepository = new FakeUserFavoritesRepository();
+
+    deleteUserFavorite = new DeleteUserFavoriteService(
       fakeUserFavoritesRepository,
-      fakeRecipesRepository,
       fakeCacheProvider,
     );
   });
 
-  it('should not be able to delete a non existing recipe', async () => {
+  it('should not be able to delete a non existing user favorite', async () => {
     await expect(
-      deleteRecipe.execute('Non existing recipe id'),
+      deleteUserFavorite.execute('Non existing user favorite id'),
     ).rejects.toBeInstanceOf(AppError);
   });
 
-  it('should be able to delete a recipe', async () => {
+  it('should be able to delete an user favorite', async () => {
     const user = await fakeUsersRepository.create({
       name: 'John Doe',
       email: 'johndoe@example.com',
@@ -60,20 +59,15 @@ describe('DeleteRecipe', () => {
       video_url: 'Recipe video URL',
     });
 
-    await fakeUserFavoritesRepository.create({
+    const userFavorite = await fakeUserFavoritesRepository.create({
       user_id: user.id,
       recipe_id: recipe.id,
     });
 
-    await deleteRecipe.execute(recipe.id);
+    await deleteUserFavorite.execute(userFavorite.id);
 
-    expect(await fakeRecipesRepository.findById(recipe.id)).toBe(undefined);
-
-    expect(
-      await fakeUserFavoritesRepository.findByUserAndRecipeId(
-        user.id,
-        recipe.id,
-      ),
-    ).toBe(undefined);
+    expect(await fakeUserFavoritesRepository.findById(userFavorite.id)).toBe(
+      undefined,
+    );
   });
 });

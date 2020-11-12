@@ -4,11 +4,15 @@ import AppError from '@shared/errors/AppError';
 
 import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 
+import IUserFavoritesRepository from '@modules/user-favorites/repositories/IUserFavoritesRepository';
 import IRecipesRepository from '../repositories/IRecipesRepository';
 
 @injectable()
 class DeleteRecipeService {
   constructor(
+    @inject('UserFavoritesRepository')
+    private userFavoritesRepository: IUserFavoritesRepository,
+
     @inject('RecipesRepository')
     private recipesRepository: IRecipesRepository,
 
@@ -22,6 +26,8 @@ class DeleteRecipeService {
     if (!recipe) {
       throw new AppError('Recipe not found.');
     }
+
+    await this.userFavoritesRepository.removeAllByRecipeId(recipe.id);
 
     this.cacheProvider.invalidatePrefix('recipes-list');
 

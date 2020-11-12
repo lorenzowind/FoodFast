@@ -15,6 +15,9 @@ import CategoriesRepository from '@modules/categories/infra/typeorm/repositories
 import IRecipesRepository from '@modules/recipes/repositories/IRecipesRepository';
 import RecipesRepository from '@modules/recipes/infra/typeorm/repositories/RecipesRepository';
 
+import IUserFavoritesRepository from '@modules/user-favorites/repositories/IUserFavoritesRepository';
+import UserFavoritesRepository from '@modules/user-favorites/infra/typeorm/repositories/UserFavoritesRepository';
+
 container.registerSingleton<IUsersRepository>(
   'UsersRepository',
   UsersRepository,
@@ -33,4 +36,9 @@ container.registerSingleton<ICategoriesRepository>(
 container.registerSingleton<IRecipesRepository>(
   'RecipesRepository',
   RecipesRepository,
+);
+
+container.registerSingleton<IUserFavoritesRepository>(
+  'UserFavoritesRepository',
+  UserFavoritesRepository,
 );
