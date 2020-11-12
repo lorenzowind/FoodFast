@@ -2,6 +2,7 @@ import { injectable, inject } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
 
+import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 import IStorageProvider from '@shared/container/providers/StorageProvider/models/IStorageProvider';
 
 import IRecipesRepository from '../repositories/IRecipesRepository';
@@ -21,6 +22,9 @@ class UpdateRecipeImageService {
 
     @inject('StorageProvider')
     private storageProvider: IStorageProvider,
+
+    @inject('CacheProvider')
+    private cacheProvider: ICacheProvider,
   ) {}
 
   public async execute({
@@ -42,6 +46,8 @@ class UpdateRecipeImageService {
     recipe.image = fileName;
 
     await this.recipesRepository.save(recipe);
+
+    this.cacheProvider.invalidatePrefix('recipes-list');
 
     return recipe;
   }

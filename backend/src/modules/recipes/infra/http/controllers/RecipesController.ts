@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
+import { classToClass } from 'class-transformer';
 
 import CreateRecipeService from '@modules/recipes/services/CreateRecipeService';
 import UpdateRecipeService from '@modules/recipes/services/UpdateRecipeService';
@@ -28,7 +29,7 @@ export default class RecipesController {
       video_url,
     });
 
-    return response.json(recipe);
+    return response.json(classToClass(recipe));
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
@@ -54,7 +55,7 @@ export default class RecipesController {
       video_url,
     });
 
-    return response.json(recipe);
+    return response.json(classToClass(recipe));
   }
 
   public async delete(request: Request, response: Response): Promise<Response> {
@@ -81,6 +82,6 @@ export default class RecipesController {
       user_id,
     );
 
-    return response.json(recipes);
+    return response.json(classToClass(recipes));
   }
 }

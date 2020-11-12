@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
+import { classToClass } from 'class-transformer';
 
 import UpdateCategoryImageService from '@modules/categories/services/UpdateCategoryImageService';
 
@@ -14,6 +15,6 @@ export default class CategoryImageController {
       imageFilename: request.file.filename,
     });
 
-    return response.json(category);
+    return response.json(classToClass(category));
   }
 }

@@ -1,5 +1,6 @@
 import AppError from '@shared/errors/AppError';
 
+import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
 import FakeStorageProvider from '@shared/container/providers/StorageProvider/fakes/FakeStorageProvider';
 
 import FakeCategoriesRepository from '@modules/categories/repositories/fakes/FakeCategoriesRepository';
@@ -10,6 +11,7 @@ import UpdateRecipeImageService from './UpdateRecipeImageService';
 let fakeCategoriesRepository: FakeCategoriesRepository;
 let fakeRecipesRepository: FakeRecipesRepository;
 
+let fakeCacheProvider: FakeCacheProvider;
 let fakeStorageProvider: FakeStorageProvider;
 
 let updateRecipeImageService: UpdateRecipeImageService;
@@ -19,11 +21,13 @@ describe('UpdateRecipeImage', () => {
     fakeCategoriesRepository = new FakeCategoriesRepository();
     fakeRecipesRepository = new FakeRecipesRepository();
 
+    fakeCacheProvider = new FakeCacheProvider();
     fakeStorageProvider = new FakeStorageProvider();
 
     updateRecipeImageService = new UpdateRecipeImageService(
       fakeRecipesRepository,
       fakeStorageProvider,
+      fakeCacheProvider,
     );
   });
 

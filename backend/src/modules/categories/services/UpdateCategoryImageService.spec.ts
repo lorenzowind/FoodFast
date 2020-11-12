@@ -1,5 +1,6 @@
 import AppError from '@shared/errors/AppError';
 
+import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
 import FakeStorageProvider from '@shared/container/providers/StorageProvider/fakes/FakeStorageProvider';
 
 import FakeCategoriesRepository from '../repositories/fakes/FakeCategoriesRepository';
@@ -8,6 +9,7 @@ import UpdateCategoryImageService from './UpdateCategoryImageService';
 
 let fakeCategoriesRepository: FakeCategoriesRepository;
 
+let fakeCacheProvider: FakeCacheProvider;
 let fakeStorageProvider: FakeStorageProvider;
 
 let updateCategoryImage: UpdateCategoryImageService;
@@ -16,11 +18,13 @@ describe('UpdateCategoryImage', () => {
   beforeEach(() => {
     fakeCategoriesRepository = new FakeCategoriesRepository();
 
+    fakeCacheProvider = new FakeCacheProvider();
     fakeStorageProvider = new FakeStorageProvider();
 
     updateCategoryImage = new UpdateCategoryImageService(
       fakeCategoriesRepository,
       fakeStorageProvider,
+      fakeCacheProvider,
     );
   });
 

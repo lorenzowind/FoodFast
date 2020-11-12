@@ -3,6 +3,8 @@ openapi: 3.0.0
 servers:
   - description: Development server URL
     url: http://127.0.0.1:3333/
+  - description: Production server URL
+    url: http://foodfast.api-sact-test.com/
 
 info:
   description: HTTP Requests guide to utilize the FoodFast API.
@@ -427,7 +429,7 @@ paths:
                 properties:
                   name:
                     type: string
-                    example: "Recipe 01"
+                    example: "Category 01"
       responses:
         '200':
           description: Returns a JSON containing the created category.

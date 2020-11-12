@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
+import { classToClass } from 'class-transformer';
 
 import CreateCategoryService from '@modules/categories/services/CreateCategoryService';
 import UpdateCategoryService from '@modules/categories/services/UpdateCategoryService';
@@ -14,7 +15,7 @@ export default class CategoriesController {
 
     const category = await createCategory.execute({ name });
 
-    return response.json(category);
+    return response.json(classToClass(category));
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
@@ -25,7 +26,7 @@ export default class CategoriesController {
 
     const category = await updateCategory.execute({ id, name });
 
-    return response.json(category);
+    return response.json(classToClass(category));
   }
 
   public async delete(request: Request, response: Response): Promise<Response> {
@@ -45,6 +46,6 @@ export default class CategoriesController {
 
     const categories = await listCategories.execute(user_id);
 
-    return response.json(categories);
+    return response.json(classToClass(categories));
   }
 }
