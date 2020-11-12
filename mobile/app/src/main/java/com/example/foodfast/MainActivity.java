@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -17,7 +16,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -38,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView button_close_signup, button_close_signin;
     EditText name_signup, mail_signup, password_signup, mail_signin, password_signin;
 
-    String base_url = "http://ec2-18-222-144-152.us-east-2.compute.amazonaws.com/";
+    String base_url = "https://foodfast.api-sact-test.com/";
 
     JSONObject auth_data_response;
 
@@ -48,9 +46,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         SharedPreferences preferences = getApplicationContext().getSharedPreferences("@FoodFast",Context.MODE_PRIVATE);
-        String retrived_token  = preferences.getString("TOKEN","");
+        String retrieved_token  = preferences.getString("TOKEN","");
 
-        if (!retrived_token.equals("")) {
+        if (!retrieved_token.equals("")) {
             Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
             startActivity(intent);
         }
@@ -177,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
 
-                Map<String, String> params = new HashMap();
+                Map<String, String> params = new HashMap<>();
                 params.put("email", email);
                 params.put("password", password);
 
@@ -209,14 +207,6 @@ public class MainActivity extends AppCompatActivity {
                         button_close_signin.performClick();
                     }
                 });
-//                {
-//                    @Override
-//                    public Map<String, String> getHeaders() throws AuthFailureError {
-//                        Map<String, String> headers = new HashMap();
-//                        headers.put("Authorization", "Bearer " + accesstoken);
-//                        return headers;
-//                    }
-//                };
 
                 requestQueue.add(jsObjRequest);
             }
