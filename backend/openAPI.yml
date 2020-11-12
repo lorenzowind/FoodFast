@@ -4,7 +4,7 @@ servers:
   - description: Development server URL
     url: http://127.0.0.1:3333/
   - description: Production server URL
-    url: http://foodfast.api-sact-test.com/
+    url: https://foodfast.api-sact-test.com/
 
 info:
   description: HTTP Requests guide to utilize the FoodFast API.
