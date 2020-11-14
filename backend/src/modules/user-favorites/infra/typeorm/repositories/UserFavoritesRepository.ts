@@ -44,8 +44,6 @@ class UserFavoritesRepository implements IUserFavoritesRepository {
   }: ICreateUserFavoriteDTO): Promise<UserFavorite> {
     const userFavorite = this.ormRepository.create({ user_id, recipe_id });
 
-    // Object.assign(userFavorite, { id: new ObjectID() });
-
     await this.ormRepository.save(userFavorite);
 
     return userFavorite;

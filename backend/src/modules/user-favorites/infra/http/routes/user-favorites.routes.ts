@@ -25,7 +25,7 @@ userFavoritesRouter.delete(
   ensureAuthenticated,
   celebrate({
     [Segments.PARAMS]: {
-      id: Joi.string().uuid().required(),
+      id: Joi.string().required(),
     },
   }),
   userFavoritesController.delete,

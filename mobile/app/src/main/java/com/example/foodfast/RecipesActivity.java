@@ -70,6 +70,7 @@ public class RecipesActivity extends AppCompatActivity {
         progress_recipes = findViewById(R.id.progress_recipes);
 
         button_back_recipes = findViewById(R.id.button_back_recipes);
+
         text_category_recipes = findViewById(R.id.text_category_recipes);
         text_main_recipes = findViewById(R.id.text_main_recipes);
         text_empty_recipes = findViewById(R.id.text_empty_recipes);

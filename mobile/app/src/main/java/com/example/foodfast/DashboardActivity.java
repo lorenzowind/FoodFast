@@ -168,8 +168,6 @@ public class DashboardActivity extends AppCompatActivity {
                             image_url = category.getString("image_url");
                         }
 
-                        Log.d("category", category.toString());
-
                         categories_data_response.add(new CategoryModel(id, image_url, name));
                     }
                 } catch (JSONException e) {

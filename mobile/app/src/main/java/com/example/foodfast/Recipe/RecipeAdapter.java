@@ -32,7 +32,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeHolder> {
         holder.name.setText(recipes.get(position).getName());
         holder.recipe = recipes.get(position);
 
-        if (!recipes.get(position).getImage_url().equals("")) {
+        if (!recipes.get(position).getImage_url().equals("null")) {
             Picasso.get().load(recipes.get(position).getImage_url()).into(holder.image);
         }
     }

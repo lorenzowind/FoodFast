@@ -32,7 +32,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryHolder> {
         holder.id = categories.get(position).getId();
         holder.name.setText(categories.get(position).getName());
 
-        if (!categories.get(position).getImage_url().equals("")) {
+        if (!categories.get(position).getImage_url().equals("null")) {
             Picasso.get().load(categories.get(position).getImage_url()).into(holder.image);
         }
     }
