@@ -889,7 +889,7 @@ paths:
           $ref:  '#/components/responses/IncorrectToken'
         '401':
           $ref: '#/components/responses/UnauthorizedError'
-  /recipes/{category_id}:
+  /recipes/filtered/{category_id}:
     get:
       summary: Gets all recipes by category id.
       parameters:
