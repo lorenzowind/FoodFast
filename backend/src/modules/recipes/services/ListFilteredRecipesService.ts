@@ -46,11 +46,11 @@ class ListFilteredRecipesService {
 
       await this.cacheProvider.save(
         `filtered-recipes-list:${user_id}:page=${page}:category=${category_id}`,
-        recipes,
+        classToClass(recipes),
       );
     }
 
-    return classToClass(recipes);
+    return recipes;
   }
 }
 

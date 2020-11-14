@@ -82,7 +82,7 @@ export default class RecipesController {
       user_id,
     );
 
-    return response.json(recipes);
+    return response.json(classToClass(recipes));
   }
 
   public async all(request: Request, response: Response): Promise<Response> {
@@ -97,6 +97,6 @@ export default class RecipesController {
       user_id,
     );
 
-    return response.json(recipes);
+    return response.json(classToClass(recipes));
   }
 }

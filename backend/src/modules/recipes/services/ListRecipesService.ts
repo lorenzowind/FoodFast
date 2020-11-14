@@ -43,11 +43,11 @@ class ListRecipesService {
 
       await this.cacheProvider.save(
         `recipes-list:${user_id}:page=${page}:search=${search}`,
-        recipes,
+        classToClass(recipes),
       );
     }
 
-    return classToClass(recipes);
+    return recipes;
   }
 }
 

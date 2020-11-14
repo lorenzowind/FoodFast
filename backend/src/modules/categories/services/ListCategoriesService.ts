@@ -25,10 +25,13 @@ class ListCategoriesService {
     if (!categories) {
       categories = await this.categoriesRepository.findAllCategories();
 
-      await this.cacheProvider.save(`categories-list:${user_id}`, categories);
+      await this.cacheProvider.save(
+        `categories-list:${user_id}`,
+        classToClass(categories),
+      );
     }
 
-    return classToClass(categories);
+    return categories;
   }
 }
 
