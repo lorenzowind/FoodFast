@@ -5,6 +5,7 @@ import { classToClass } from 'class-transformer';
 import CreateRecipeService from '@modules/recipes/services/CreateRecipeService';
 import UpdateRecipeService from '@modules/recipes/services/UpdateRecipeService';
 import DeleteRecipeService from '@modules/recipes/services/DeleteRecipeService';
+import ListRecipesService from '@modules/recipes/services/ListRecipesService';
 import ListFilteredRecipesService from '@modules/recipes/services/ListFilteredRecipesService';
 
 export default class RecipesController {
@@ -71,14 +72,28 @@ export default class RecipesController {
   public async show(request: Request, response: Response): Promise<Response> {
     const user_id = request.user.id;
     const { category_id } = request.params;
+    const { page = 1 } = request.query;
+
+    const listFilteredRecipes = container.resolve(ListFilteredRecipesService);
+
+    const recipes = await listFilteredRecipes.execute(
+      Number(page),
+      category_id,
+      user_id,
+    );
+
+    return response.json(classToClass(recipes));
+  }
+
+  public async all(request: Request, response: Response): Promise<Response> {
+    const user_id = request.user.id;
     const { search = '', page = 1 } = request.query;
 
-    const listRecipes = container.resolve(ListFilteredRecipesService);
+    const listRecipes = container.resolve(ListRecipesService);
 
     const recipes = await listRecipes.execute(
       String(search),
       Number(page),
-      category_id,
       user_id,
     );
 

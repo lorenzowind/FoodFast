@@ -4,10 +4,10 @@ import ICreateRecipeDTO from '../dtos/ICreateOrUpdateRecipeDTO';
 
 export default interface IRecipesRepository {
   findAllRecipesByCategoryId(
-    search: string,
     page: number,
     category_id: string,
   ): Promise<Recipe[]>;
+  findAllRecipes(search: string, page: number): Promise<Recipe[]>;
   findByName(name: string): Promise<Recipe | undefined>;
   findById(id: string): Promise<Recipe | undefined>;
   create(data: ICreateRecipeDTO): Promise<Recipe>;

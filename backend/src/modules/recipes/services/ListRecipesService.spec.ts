@@ -4,7 +4,7 @@ import FakeUsersRepository from '@modules/users/repositories/fakes/FakeUsersRepo
 import FakeCategoriesRepository from '@modules/categories/repositories/fakes/FakeCategoriesRepository';
 import FakeRecipesRepository from '../repositories/fakes/FakeRecipesRepository';
 
-import ListFilteredRecipesService from './ListFilteredRecipesService';
+import ListRecipesService from './ListRecipesService';
 
 let fakeCacheProvider: FakeCacheProvider;
 
@@ -12,9 +12,9 @@ let fakeUsersRepository: FakeUsersRepository;
 let fakeCategoriesRepository: FakeCategoriesRepository;
 let fakeRecipesRepository: FakeRecipesRepository;
 
-let listFilteredRecipes: ListFilteredRecipesService;
+let listRecipes: ListRecipesService;
 
-describe('ListFilteredRecipes', () => {
+describe('ListRecipes', () => {
   beforeEach(() => {
     fakeUsersRepository = new FakeUsersRepository();
     fakeCategoriesRepository = new FakeCategoriesRepository();
@@ -22,7 +22,7 @@ describe('ListFilteredRecipes', () => {
 
     fakeCacheProvider = new FakeCacheProvider();
 
-    listFilteredRecipes = new ListFilteredRecipesService(
+    listRecipes = new ListRecipesService(
       fakeRecipesRepository,
       fakeCacheProvider,
     );
@@ -57,21 +57,13 @@ describe('ListFilteredRecipes', () => {
       video_url: 'Recipe 02 video URL',
     });
 
-    await listFilteredRecipes.execute(1, category.id, user.id);
+    await listRecipes.execute('', 1, user.id);
 
-    const recipes = await listFilteredRecipes.execute(1, category.id, user.id);
+    const recipes = await listRecipes.execute('', 1, user.id);
 
-    const accumulatedRecipes = await listFilteredRecipes.execute(
-      2,
-      category.id,
-      user.id,
-    );
+    const accumulatedRecipes = await listRecipes.execute('', 2, user.id);
 
-    const emptyRecipes = await listFilteredRecipes.execute(
-      4,
-      category.id,
-      user.id,
-    );
+    const emptyRecipes = await listRecipes.execute('', 4, user.id);
 
     expect(recipes).toEqual([firstRecipe, secondRecipe]);
 

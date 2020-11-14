@@ -84,4 +84,6 @@ recipesRouter.get(
   recipesController.show,
 );
 
+recipesRouter.get('/all', ensureAuthenticated, recipesController.all);
+
 export default recipesRouter;

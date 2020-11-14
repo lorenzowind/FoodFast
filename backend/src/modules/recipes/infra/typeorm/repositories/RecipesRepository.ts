@@ -15,26 +15,33 @@ class RecipesRepository implements IRecipesRepository {
   }
 
   public async findAllRecipesByCategoryId(
-    search: string,
     page: number,
     category_id: string,
   ): Promise<Recipe[]> {
+    const findRecipes = await this.ormRepository.find({
+      skip: (page - 1) * 10,
+      take: 10,
+      where: {
+        category_id,
+      },
+    });
+
+    return findRecipes;
+  }
+
+  public async findAllRecipes(search: string, page: number): Promise<Recipe[]> {
     const findRecipes =
       search !== ''
         ? await this.ormRepository.find({
             skip: (page - 1) * 10,
             take: 10,
             where: {
-              category_id,
               name: Like(`%${search}%`),
             },
           })
         : await this.ormRepository.find({
             skip: (page - 1) * 10,
             take: 10,
-            where: {
-              category_id,
-            },
           });
 
     return findRecipes;

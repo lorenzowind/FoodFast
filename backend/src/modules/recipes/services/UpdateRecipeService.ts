@@ -63,6 +63,7 @@ class UpdateRecipeService {
     recipe.steps = steps;
     recipe.video_url = video_url;
 
+    this.cacheProvider.invalidatePrefix('filtered-recipes-list');
     this.cacheProvider.invalidatePrefix('recipes-list');
 
     return this.recipesRepository.save(recipe);

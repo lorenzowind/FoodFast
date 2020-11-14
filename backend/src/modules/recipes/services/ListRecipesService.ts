@@ -7,7 +7,7 @@ import Recipe from '../infra/typeorm/entities/Recipe';
 import IRecipesRepository from '../repositories/IRecipesRepository';
 
 @injectable()
-class ListFilteredRecipesService {
+class ListRecipesService {
   constructor(
     @inject('RecipesRepository')
     private recipesRepository: IRecipesRepository,
@@ -17,34 +17,31 @@ class ListFilteredRecipesService {
   ) {}
 
   public async execute(
+    search: string,
     page: number,
-    category_id: string,
     user_id: string,
   ): Promise<Recipe[]> {
     let recipes = await this.cacheProvider.recover<Recipe[]>(
-      `filtered-recipes-list:${user_id}:page=${page}:category=${category_id}`,
+      `recipes-list:${user_id}:page=${page}:search=${search}`,
     );
 
     if (!recipes) {
-      recipes = await this.recipesRepository.findAllRecipesByCategoryId(
-        page,
-        category_id,
-      );
+      recipes = await this.recipesRepository.findAllRecipes(search, page);
 
       const recipesLastPage = await this.cacheProvider.recover<Recipe[]>(
-        `filtered-recipes-list:${user_id}:page=${
-          page - 1
-        }:category=${category_id}`,
+        `recipes-list:${user_id}:page=${page - 1}:search=${search}`,
       );
 
       if (recipesLastPage) {
         recipes = recipesLastPage.concat(recipes);
       } else if (page > 1) {
         return [];
+      } else {
+        this.cacheProvider.invalidatePrefix(`recipes-list:${user_id}`);
       }
 
       await this.cacheProvider.save(
-        `filtered-recipes-list:${user_id}:page=${page}:category=${category_id}`,
+        `recipes-list:${user_id}:page=${page}:search=${search}`,
         recipes,
       );
     }
@@ -53,4 +50,4 @@ class ListFilteredRecipesService {
   }
 }
 
-export default ListFilteredRecipesService;
+export default ListRecipesService;

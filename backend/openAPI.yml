@@ -823,7 +823,72 @@ paths:
           $ref:  '#/components/responses/IncorrectToken'
         '401':
           $ref: '#/components/responses/UnauthorizedError'
-
+  /recipes/all:
+    get:
+      summary: Gets all recipes.
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: string
+          description: A integer to control the recipes pagination.
+        - in: query
+          name: search
+          schema:
+            type: string
+          description: A string to search for specific recipes.
+      tags:
+        - recipes
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Returns a JSON array containing all recipes.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      format: uuid
+                      example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+                    category_id:
+                      type: string
+                      format: uuid
+                      example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+                    name:
+                      type: string
+                      example: "Recipe 01"
+                    description:
+                      type: string
+                      example: "Recipe 01 description"
+                    ingredients:
+                      type: string
+                      example: "Recipe 01 ingredients"
+                    steps:
+                      type: string
+                      example: "Recipe 01 steps"
+                    video_url:
+                      type: string
+                      example: "Recipe 01 video URL"
+                    image_url:
+                      type: string
+                      example: null
+                    created_at:
+                      type: string
+                      format: dateformat
+                      example: "2020-07-02T21:57:00.421Z"
+                    updated_at:
+                      type: string
+                      format: dateformat
+                      example: "2020-07-02T21:57:00.421Z"
+        '400':
+          $ref:  '#/components/responses/IncorrectToken'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
   /recipes/{category_id}:
     get:
       summary: Gets all recipes by category id.
@@ -841,11 +906,6 @@ paths:
           schema:
             type: string
           description: A integer to control the recipes pagination.
-        - in: query
-          name: search
-          schema:
-            type: string
-          description: A string to search for specific recipes.
       tags:
         - recipes
       security:

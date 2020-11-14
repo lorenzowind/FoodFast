@@ -54,6 +54,7 @@ class CreateRecipeService {
       video_url,
     });
 
+    this.cacheProvider.invalidatePrefix('filtered-recipes-list');
     this.cacheProvider.invalidatePrefix('recipes-list');
 
     return recipe;

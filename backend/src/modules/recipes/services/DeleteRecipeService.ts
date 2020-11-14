@@ -29,6 +29,7 @@ class DeleteRecipeService {
 
     await this.userFavoritesRepository.removeAllByRecipeId(recipe.id);
 
+    this.cacheProvider.invalidatePrefix('filtered-recipes-list');
     this.cacheProvider.invalidatePrefix('recipes-list');
 
     await this.recipesRepository.remove(recipe);

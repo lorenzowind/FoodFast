@@ -10,18 +10,21 @@ export default class FakeRecipesRepository implements IRecipesRepository {
   private recipes: Recipe[] = [];
 
   public async findAllRecipesByCategoryId(
-    search: string,
     page: number,
     category_id: string,
   ): Promise<Recipe[]> {
+    return this.recipes
+      .filter(recipe => recipe.category_id === category_id)
+      .slice((page - 1) * 10)
+      .slice(0, 10);
+  }
+
+  public async findAllRecipes(search: string, page: number): Promise<Recipe[]> {
     const recipes = !search
       ? this.recipes
       : this.recipes.filter(recipe => recipe.name.includes(search));
 
-    return recipes
-      .filter(recipe => recipe.category_id === category_id)
-      .slice((page - 1) * 10)
-      .slice(0, 10);
+    return recipes.slice((page - 1) * 10).slice(0, 10);
   }
 
   public async findByName(name: string): Promise<Recipe | undefined> {
