@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -30,15 +31,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
-    RelativeLayout initial_screen_content;
-    Button button_signin, button_signup, button_signup_popup, button_signin_popup;
-    LinearLayout default_buttons, popup_signup, popup_signin;
-    ImageView button_close_signup, button_close_signin;
-    EditText name_signup, mail_signup, password_signup, mail_signin, password_signin;
+    private ProgressBar progress_main;
+    protected RelativeLayout initial_screen_content;
+    protected Button button_signin, button_signup, button_signup_popup, button_signin_popup;
+    private LinearLayout default_buttons, popup_signup, popup_signin;
+    private ImageView button_close_signup, button_close_signin;
+    private EditText name_signup, mail_signup, password_signup, mail_signin, password_signin;
 
-    String base_url = "https://foodfast.api-sact-test.com/";
+    private String base_url = "https://foodfast.api-sact-test.com/";
 
-    JSONObject auth_data_response;
+    private JSONObject auth_data_response;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,10 +55,11 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
 
+        progress_main = findViewById(R.id.progress_main);
         initial_screen_content = findViewById(R.id.initial_screen_content);
 
-        Animation animation_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fadein);
-        initial_screen_content.startAnimation(animation_in);
+        Animation animation_in_screen_content = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fadein);
+        initial_screen_content.startAnimation(animation_in_screen_content);
 
         button_signin = findViewById(R.id.button_signin);
         button_signup = findViewById(R.id.button_signup);
@@ -137,30 +140,7 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
 
-                Map<String, String> params = new HashMap();
-                params.put("name", name);
-                params.put("email", email);
-                params.put("password", password);
-
-                JSONObject parameters = new JSONObject(params);
-
-                RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-
-                JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, base_url + "users", parameters, new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Toast.makeText(getApplicationContext(), "User created successfully", Toast.LENGTH_SHORT).show();
-                        button_close_signup.performClick();
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), "An error occurred to sign up", Toast.LENGTH_SHORT).show();
-                        button_close_signup.performClick();
-                    }
-                });
-
-                requestQueue.add(jsObjRequest);
+                sign_up(name, email, password);
             }
         });
 
@@ -175,41 +155,90 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
 
-                Map<String, String> params = new HashMap<>();
-                params.put("email", email);
-                params.put("password", password);
-
-                JSONObject parameters = new JSONObject(params);
-
-                RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-
-                JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, base_url + "sessions", parameters, new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            auth_data_response = new JSONObject(response.toString());
-
-                            SharedPreferences preferences = getApplicationContext().getSharedPreferences("@FoodFast", Context.MODE_PRIVATE);
-                            preferences.edit().putString("TOKEN", auth_data_response.getString("token")).apply();
-                            preferences.edit().putString("USER", auth_data_response.getString("user")).apply();
-
-                            Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
-                            startActivity(intent);
-                        } catch (JSONException e) {
-                            Toast.makeText(getApplicationContext(), "An error occurred", Toast.LENGTH_SHORT).show();
-                        }
-                        button_close_signin.performClick();
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), "An error occurred to sign in", Toast.LENGTH_SHORT).show();
-                        button_close_signin.performClick();
-                    }
-                });
-
-                requestQueue.add(jsObjRequest);
+                sign_in(email, password);
             }
         });
+    }
+
+    private void sign_up(String name, String email, String password) {
+        Map<String, String> params = new HashMap();
+        params.put("name", name);
+        params.put("email", email);
+        params.put("password", password);
+
+        JSONObject parameters = new JSONObject(params);
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        show_progress();
+
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, base_url + "users", parameters, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                hide_progress();
+                Toast.makeText(getApplicationContext(), "User created successfully", Toast.LENGTH_SHORT).show();
+                button_close_signup.performClick();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                hide_progress();
+                Toast.makeText(getApplicationContext(), "An error occurred to sign up", Toast.LENGTH_SHORT).show();
+                button_close_signup.performClick();
+            }
+        });
+
+        requestQueue.add(jsObjRequest);
+    }
+
+    private void sign_in(String email, String password) {
+        Map<String, String> params = new HashMap<>();
+        params.put("email", email);
+        params.put("password", password);
+
+        JSONObject parameters = new JSONObject(params);
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        show_progress();
+
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, base_url + "sessions", parameters, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                hide_progress();
+                try {
+                    auth_data_response = new JSONObject(response.toString());
+
+                    SharedPreferences preferences = getApplicationContext().getSharedPreferences("@FoodFast", Context.MODE_PRIVATE);
+                    preferences.edit().putString("TOKEN", auth_data_response.getString("token")).apply();
+                    preferences.edit().putString("USER", auth_data_response.getString("user")).apply();
+
+                    Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
+                    startActivity(intent);
+                } catch (JSONException e) {
+                    Toast.makeText(getApplicationContext(), "An error occurred", Toast.LENGTH_SHORT).show();
+                }
+                button_close_signin.performClick();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                hide_progress();
+                Toast.makeText(getApplicationContext(), "An error occurred to sign in", Toast.LENGTH_SHORT).show();
+                button_close_signin.performClick();
+            }
+        });
+
+        requestQueue.add(jsObjRequest);
+    }
+
+    private void show_progress() {
+        Animation animation_in_progress = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fadein_2);
+        progress_main.startAnimation(animation_in_progress);
+        progress_main.setVisibility(View.VISIBLE);
+    }
+
+    private void hide_progress() {
+        Animation animation_out_progress = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fadeout_2);
+        progress_main.startAnimation(animation_out_progress);
+        progress_main.setVisibility(View.GONE);
     }
 }

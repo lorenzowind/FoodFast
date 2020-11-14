@@ -1,12 +1,22 @@
 package com.example.foodfast;
 
 public class CategoryModel {
+    private String id;
     private String image_url;
     private String name;
 
-    public CategoryModel(String image_url, String name) {
+    public CategoryModel(String id, String image_url, String name) {
+        this.id = id;
         this.image_url = image_url;
         this.name = name;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getImage_url() {

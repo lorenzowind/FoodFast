@@ -9,6 +9,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,22 +35,25 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class DashboardActivity extends AppCompatActivity {
-    public ImageView button_menu_dashboard, button_close_menu;
-    public RelativeLayout layout_menu, layout_dashboard;
-    public TextView text_logout_menu, text_username_dashboard, text_email_menu, text_username_menu;
+    private ProgressBar progress_dashboard;
+    protected ImageView button_menu_dashboard, button_close_menu;
+    private RelativeLayout layout_menu, layout_dashboard;
+    protected TextView text_logout_menu, text_username_dashboard, text_email_menu, text_username_menu;
 
-    public HorizontalScrollView frame_non_empty_categories;
+    protected HorizontalScrollView frame_non_empty_categories;
     private RecyclerView recycler_view_categories;
 
-    String base_url = "https://foodfast.api-sact-test.com/";
-    String retrieved_user, retrieved_token;
+    private String base_url = "https://foodfast.api-sact-test.com/";
+    protected String retrieved_user, retrieved_token;
 
-    ArrayList<CategoryModel> categories_data_response = new ArrayList<>();
+    private ArrayList<CategoryModel> categories_data_response = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+
+        progress_dashboard = findViewById(R.id.progress_dashboard);
 
         button_menu_dashboard = findViewById(R.id.button_menu_dashboard);
         button_close_menu = findViewById(R.id.button_close_menu);
@@ -122,22 +126,25 @@ public class DashboardActivity extends AppCompatActivity {
 
     private void load_categories() {
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        show_progress();
 
         JsonArrayRequest jsObjRequest = new JsonArrayRequest(Request.Method.GET, base_url + "categories/all", null,new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
+                hide_progress();
                 try {
                     for (int index=0; index<response.length(); index++){
                         JSONObject category = (JSONObject) response.get(index);
 
-                        String image_url = "";
+                        String id = category.getString("id");
                         String name = category.getString("name");
+                        String image_url = "";
 
                         if (category.has("image_url")) {
                             image_url = category.getString("image_url");
                         }
 
-                        categories_data_response.add(new CategoryModel(image_url, name));
+                        categories_data_response.add(new CategoryModel(id, image_url, name));
                     }
                 } catch (JSONException e) {
                     Toast.makeText(getApplicationContext(), "An error occurred", Toast.LENGTH_SHORT).show();
@@ -149,6 +156,7 @@ public class DashboardActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                hide_progress();
                 Toast.makeText(getApplicationContext(), "An error occurred to load the categories", Toast.LENGTH_SHORT).show();
             }
         }) {
@@ -162,5 +170,17 @@ public class DashboardActivity extends AppCompatActivity {
         };
 
         requestQueue.add(jsObjRequest);
+    }
+
+    private void show_progress() {
+        Animation animation_in_progress = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fadein_2);
+        progress_dashboard.startAnimation(animation_in_progress);
+        progress_dashboard.setVisibility(View.VISIBLE);
+    }
+
+    private void hide_progress() {
+        Animation animation_out_progress = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fadeout_2);
+        progress_dashboard.startAnimation(animation_out_progress);
+        progress_dashboard.setVisibility(View.GONE);
     }
 }

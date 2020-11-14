@@ -16,12 +16,17 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryHolder> {
 
     @Override
     public CategoryHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new CategoryHolder(LayoutInflater.from(parent.getContext())
+        CategoryHolder categoryHolder =  new CategoryHolder(LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.category_item, parent, false));
+
+        categoryHolder.context = parent.getContext();
+
+        return  categoryHolder;
     }
 
     @Override
     public void onBindViewHolder(CategoryHolder holder, int position) {
+        holder.id = categories.get(position).getId();
         holder.name.setText(categories.get(position).getName());
     }
 

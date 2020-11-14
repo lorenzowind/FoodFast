@@ -1,18 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <ProgressBar
+        android:id="@+id/progress_recipes"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="64dp"
+        android:indeterminate="true"
+        android:elevation="1dp"
+        android:alpha="0.3"
+        android:indeterminateDrawable="@drawable/progress"/>
+
     <LinearLayout
+        android:id="@+id/layout_header_recipes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="20dp">
 
         <ImageView
-            android:id="@+id/icon_profile_username"
+            android:id="@+id/button_back_recipes"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:src="@drawable/ic_arrow_left"/>
@@ -41,6 +53,7 @@
     </LinearLayout>
 
     <ScrollView
+        android:layout_below="@id/layout_header_recipes"
         android:id="@+id/frame_non_empty_recipes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -56,4 +69,4 @@
             tools:listitem="@layout/recipe_item" />
     </ScrollView>
 
-</LinearLayout>
+</RelativeLayout>

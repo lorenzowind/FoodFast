@@ -4,6 +4,17 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <ProgressBar
+        android:id="@+id/progress_dashboard"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="64dp"
+        android:indeterminate="true"
+        android:elevation="1dp"
+        android:alpha="0.3"
+        android:indeterminateDrawable="@drawable/progress"/>
+
     <include
         android:id="@+id/layout_menu"
         android:visibility="gone"
