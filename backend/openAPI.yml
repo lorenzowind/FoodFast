@@ -1059,8 +1059,7 @@ paths:
                 properties:
                   id:
                     type: string
-                    format: uuid
-                    example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+                    example: "5fad6e25458f250c5999c525"
                   user_id:
                     type: string
                     format: uuid
@@ -1091,8 +1090,7 @@ paths:
                   properties:
                     id:
                       type: string
-                      format: uuid
-                      example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+                      example: "5fad6e25458f250c5999c525"
                     user_id:
                       type: string
                       format: uuid
@@ -1150,8 +1148,7 @@ paths:
           name: id
           schema:
             type: string
-            format: uuid
-            example: "3c68c90a-009b-4c59-9c7f-dab2774e9a57"
+            example: "5fad6e25458f250c5999c525"
           required: true
           description: User favorite id to delete it.
       tags:
