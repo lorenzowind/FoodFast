@@ -1,7 +1,9 @@
-package com.example.foodfast;
+package com.example.foodfast.Category;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+
+import com.example.foodfast.R;
 
 import java.util.ArrayList;
 

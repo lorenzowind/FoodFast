@@ -1,4 +1,4 @@
-package com.example.foodfast;
+package com.example.foodfast.Category;
 
 import android.app.ActivityOptions;
 import android.content.Context;
@@ -6,6 +6,9 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.foodfast.R;
+import com.example.foodfast.RecipesActivity;
 
 import androidx.recyclerview.widget.RecyclerView;
 

@@ -1,4 +1,4 @@
-package com.example.foodfast;
+package com.example.foodfast.Category;
 
 public class CategoryModel {
     private String id;
