@@ -46,6 +46,6 @@ export default class CategoriesController {
 
     const categories = await listCategories.execute(user_id);
 
-    return response.json(classToClass(categories));
+    return response.json(categories);
   }
 }

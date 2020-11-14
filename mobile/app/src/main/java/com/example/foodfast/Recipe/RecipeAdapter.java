@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.example.foodfast.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -30,6 +31,10 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeHolder> {
     public void onBindViewHolder(RecipeHolder holder, int position) {
         holder.name.setText(recipes.get(position).getName());
         holder.recipe = recipes.get(position);
+
+        if (!recipes.get(position).getImage_url().equals("")) {
+            Picasso.get().load(recipes.get(position).getImage_url()).into(holder.image);
+        }
     }
 
     @Override

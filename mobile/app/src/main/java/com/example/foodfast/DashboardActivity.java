@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -166,6 +167,8 @@ public class DashboardActivity extends AppCompatActivity {
                         if (category.has("image_url")) {
                             image_url = category.getString("image_url");
                         }
+
+                        Log.d("category", category.toString());
 
                         categories_data_response.add(new CategoryModel(id, image_url, name));
                     }

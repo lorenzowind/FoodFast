@@ -10,6 +10,7 @@ import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -41,9 +42,10 @@ import androidx.recyclerview.widget.RecyclerView;
 public class RecipesActivity extends AppCompatActivity {
     private ProgressBar progress_recipes;
     protected ImageView button_back_recipes;
-    protected TextView text_category_recipes, text_main_recipes;
+    protected TextView text_category_recipes, text_main_recipes, text_empty_recipes;
     protected String category_id, category_name, search_recipe;
 
+    protected LinearLayout frame_empty_recipes;
     protected ScrollView frame_non_empty_recipes;
     private RecyclerView recycler_view_recipes;
 
@@ -70,14 +72,17 @@ public class RecipesActivity extends AppCompatActivity {
         button_back_recipes = findViewById(R.id.button_back_recipes);
         text_category_recipes = findViewById(R.id.text_category_recipes);
         text_main_recipes = findViewById(R.id.text_main_recipes);
+        text_empty_recipes = findViewById(R.id.text_empty_recipes);
 
         if (category_name != null) {
             text_category_recipes.setText(category_name);
-        } else {
-            text_category_recipes.setText("Search result");
+            text_empty_recipes.setText("No recipes...");
+        } else if (search_recipe != null) {
+            text_category_recipes.setText("Search result: " + search_recipe);
             text_main_recipes.setText("Recipes");
         }
 
+        frame_empty_recipes = findViewById(R.id.frame_empty_recipes);
         frame_non_empty_recipes = findViewById(R.id.frame_non_empty_recipes);
 
         recycler_view_recipes = findViewById(R.id.recycler_view_recipes);
@@ -115,9 +120,9 @@ public class RecipesActivity extends AppCompatActivity {
         String custom_url;
 
         if (search_recipe != null) {
-            custom_url = base_url + "recipes/all" + "?page=" + current_page.toString() + "&search=";
+            custom_url = base_url + "recipes/all" + "?page=" + current_page.toString() + "&search=" + search_recipe;
         } else {
-            custom_url = base_url + "recipes/" + category_id + "?page=" + current_page.toString();
+            custom_url = base_url + "recipes/filtered/" + category_id + "?page=" + current_page.toString();
         }
 
         JsonArrayRequest jsObjRequest = new JsonArrayRequest(Request.Method.GET, custom_url, null,new Response.Listener<JSONArray>() {
@@ -166,6 +171,15 @@ public class RecipesActivity extends AppCompatActivity {
                 if (previous_recipes_size == 0) {
                     final RecipeAdapter adapter = new RecipeAdapter(recipes_data_response);
                     recycler_view_recipes.setAdapter(adapter);
+                }
+
+                if (recipes_data_response.size() == 0) {
+                    Animation animation_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fadein_2);
+                    Animation animation_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fadeout_2);
+                    frame_empty_recipes.startAnimation(animation_in);
+                    frame_non_empty_recipes.startAnimation(animation_out);
+                    frame_empty_recipes.setVisibility(View.VISIBLE);
+                    frame_non_empty_recipes.setVisibility(View.GONE);
                 }
             }
         }, new Response.ErrorListener() {

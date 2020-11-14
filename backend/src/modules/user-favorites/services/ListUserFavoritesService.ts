@@ -1,4 +1,5 @@
 import { injectable, inject } from 'tsyringe';
+import { classToClass } from 'class-transformer';
 
 import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 
@@ -44,7 +45,10 @@ class ListUserFavoritesService {
           );
 
           if (recipe) {
-            userFavorites.push({ ...auxUserFavorites[i], recipe });
+            userFavorites.push({
+              ...auxUserFavorites[i],
+              recipe: classToClass(recipe),
+            });
           }
         }
 

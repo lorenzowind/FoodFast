@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.example.foodfast.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -30,6 +31,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryHolder> {
     public void onBindViewHolder(CategoryHolder holder, int position) {
         holder.id = categories.get(position).getId();
         holder.name.setText(categories.get(position).getName());
+
+        if (!categories.get(position).getImage_url().equals("")) {
+            Picasso.get().load(categories.get(position).getImage_url()).into(holder.image);
+        }
     }
 
     @Override
