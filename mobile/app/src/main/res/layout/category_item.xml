@@ -7,7 +7,7 @@
     android:orientation="horizontal" >
 
     <FrameLayout
-        android:id="@+id/frame_project_model"
+        android:id="@+id/frame_category_model"
         android:layout_width="wrap_content"
         android:layout_height="240dp"
         android:layout_marginHorizontal="16dp"

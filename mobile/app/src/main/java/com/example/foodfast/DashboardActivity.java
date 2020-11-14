@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -39,8 +38,8 @@ public class DashboardActivity extends AppCompatActivity {
     public RelativeLayout layout_menu, layout_dashboard;
     public TextView text_logout_menu, text_username_dashboard, text_email_menu, text_username_menu;
 
-    public HorizontalScrollView non_empty_projects;
-    private RecyclerView recyclerView;
+    public HorizontalScrollView frame_non_empty_categories;
+    private RecyclerView recycler_view_categories;
 
     String base_url = "https://foodfast.api-sact-test.com/";
     String retrieved_user, retrieved_token;
@@ -63,15 +62,15 @@ public class DashboardActivity extends AppCompatActivity {
         layout_menu = findViewById(R.id.layout_menu);
         layout_dashboard = findViewById(R.id.layout_dashboard);
 
-        non_empty_projects = findViewById(R.id.frame_non_empty_projects);
+        frame_non_empty_categories = findViewById(R.id.frame_non_empty_categories);
 
         SharedPreferences preferences = getApplicationContext().getSharedPreferences("@FoodFast",Context.MODE_PRIVATE);
         retrieved_user = preferences.getString("USER","");
         retrieved_token = preferences.getString("TOKEN","");
 
-        recyclerView = findViewById(R.id.recycler_view);
+        recycler_view_categories = findViewById(R.id.recycler_view_categories);
         LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        recyclerView.setLayoutManager(horizontalLayoutManager);
+        recycler_view_categories.setLayoutManager(horizontalLayoutManager);
 
         try {
             JSONObject user = new JSONObject(retrieved_user);
@@ -145,7 +144,7 @@ public class DashboardActivity extends AppCompatActivity {
                 }
 
                 final CategoryAdapter adapter = new CategoryAdapter(categories_data_response);
-                recyclerView.setAdapter(adapter);
+                recycler_view_categories.setAdapter(adapter);
             }
         }, new Response.ErrorListener() {
             @Override
