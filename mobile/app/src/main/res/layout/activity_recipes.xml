@@ -43,7 +43,7 @@
                 android:textSize="18sp"/>
 
             <TextView
-                android:id="@+id/text_username_dashboard"
+                android:id="@+id/text_main_recipes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Popular recipes"

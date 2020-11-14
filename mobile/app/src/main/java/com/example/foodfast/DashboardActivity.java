@@ -1,5 +1,6 @@
 package com.example.foodfast;
 
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.EditText;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -38,9 +40,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class DashboardActivity extends AppCompatActivity {
     private ProgressBar progress_dashboard;
-    protected ImageView button_menu_dashboard, button_close_menu;
+    protected ImageView button_menu_dashboard, button_close_menu, button_search_dashboard;
     private RelativeLayout layout_menu, layout_dashboard;
     protected TextView text_logout_menu, text_username_dashboard, text_email_menu, text_username_menu;
+    protected EditText search_dashboard;
 
     protected HorizontalScrollView frame_non_empty_categories;
     private RecyclerView recycler_view_categories;
@@ -59,7 +62,9 @@ public class DashboardActivity extends AppCompatActivity {
 
         button_menu_dashboard = findViewById(R.id.button_menu_dashboard);
         button_close_menu = findViewById(R.id.button_close_menu);
+        button_search_dashboard = findViewById(R.id.button_search_dashboard);
 
+        search_dashboard = findViewById(R.id.search_dashboard);
         text_logout_menu = findViewById(R.id.text_logout_menu);
         text_username_dashboard = findViewById(R.id.text_username_dashboard);
         text_email_menu = findViewById(R.id.text_email_menu);
@@ -111,6 +116,22 @@ public class DashboardActivity extends AppCompatActivity {
                 layout_menu.startAnimation(animation_out);
                 layout_dashboard.setVisibility(View.VISIBLE);
                 layout_menu.setVisibility(View.GONE);
+            }
+        });
+
+        button_search_dashboard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (search_dashboard.getText().toString().equals("")) {
+                    Toast.makeText(getApplicationContext(), "Invalid search input", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                Intent intent = new Intent(getApplicationContext(), RecipesActivity.class);
+                intent.putExtra("EXTRA_SEARCH_RECIPE", search_dashboard.getText().toString());
+
+                ActivityOptions options = ActivityOptions.makeCustomAnimation(getApplicationContext(), R.anim.lefttoright, R.anim.fadeout);
+                startActivity(intent, options.toBundle());
             }
         });
 

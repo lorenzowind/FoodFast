@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
@@ -42,8 +41,8 @@ import androidx.recyclerview.widget.RecyclerView;
 public class RecipesActivity extends AppCompatActivity {
     private ProgressBar progress_recipes;
     protected ImageView button_back_recipes;
-    protected TextView text_category_recipes;
-    protected String category_id, category_name;
+    protected TextView text_category_recipes, text_main_recipes;
+    protected String category_id, category_name, search_recipe;
 
     protected ScrollView frame_non_empty_recipes;
     private RecyclerView recycler_view_recipes;
@@ -64,12 +63,20 @@ public class RecipesActivity extends AppCompatActivity {
 
         category_id = getIntent().getStringExtra("EXTRA_CATEGORY_ID");
         category_name = getIntent().getStringExtra("EXTRA_CATEGORY_NAME");
+        search_recipe = getIntent().getStringExtra("EXTRA_SEARCH_RECIPE");
 
         progress_recipes = findViewById(R.id.progress_recipes);
 
         button_back_recipes = findViewById(R.id.button_back_recipes);
         text_category_recipes = findViewById(R.id.text_category_recipes);
-        text_category_recipes.setText(category_name);
+        text_main_recipes = findViewById(R.id.text_main_recipes);
+
+        if (category_name != null) {
+            text_category_recipes.setText(category_name);
+        } else {
+            text_category_recipes.setText("Search result");
+            text_main_recipes.setText("Recipes");
+        }
 
         frame_non_empty_recipes = findViewById(R.id.frame_non_empty_recipes);
 
@@ -105,7 +112,13 @@ public class RecipesActivity extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         show_progress();
 
-        String custom_url = base_url + "recipes/" + category_id + "?page=" + current_page.toString() + "&search=";
+        String custom_url;
+
+        if (search_recipe != null) {
+            custom_url = base_url + "recipes/all" + "?page=" + current_page.toString() + "&search=";
+        } else {
+            custom_url = base_url + "recipes/" + category_id + "?page=" + current_page.toString();
+        }
 
         JsonArrayRequest jsObjRequest = new JsonArrayRequest(Request.Method.GET, custom_url, null,new Response.Listener<JSONArray>() {
             @Override
@@ -168,13 +181,6 @@ public class RecipesActivity extends AppCompatActivity {
                 headers.put("Content-Type", "application/json");
                 headers.put("Authorization", "Bearer " + retrieved_token);
                 return headers;
-            }
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-                params.put("page", "2");
-                params.put("search", "");
-                return params;
             }
         };
 
