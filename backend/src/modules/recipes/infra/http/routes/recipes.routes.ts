@@ -74,7 +74,7 @@ recipesRouter.patch(
 );
 
 recipesRouter.get(
-  '/:category_id',
+  '/filtered/:category_id',
   ensureAuthenticated,
   celebrate({
     [Segments.PARAMS]: {
