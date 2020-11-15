@@ -33,10 +33,9 @@
             android:layout_marginTop="20dp">
 
             <ImageView
-                android:id="@+id/icon_profile_username"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:src="@drawable/ic_profile"/>
+                android:src="@drawable/logo_foodfast"/>
 
             <ImageView
                 android:id="@+id/button_menu_dashboard"

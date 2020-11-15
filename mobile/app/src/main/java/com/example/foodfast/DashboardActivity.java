@@ -10,6 +10,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -41,6 +42,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class DashboardActivity extends AppCompatActivity {
     private ProgressBar progress_dashboard;
     protected ImageView button_menu_dashboard, button_close_menu, button_search_dashboard;
+    private LinearLayout option_favorite_menu;
     private RelativeLayout layout_menu, layout_dashboard;
     protected TextView text_logout_menu, text_username_dashboard, text_email_menu, text_username_menu;
     protected EditText search_dashboard;
@@ -74,6 +76,7 @@ public class DashboardActivity extends AppCompatActivity {
         layout_dashboard = findViewById(R.id.layout_dashboard);
 
         frame_non_empty_categories = findViewById(R.id.frame_non_empty_categories);
+        option_favorite_menu = findViewById(R.id.option_favorite_menu);
 
         SharedPreferences preferences = getApplicationContext().getSharedPreferences("@FoodFast",Context.MODE_PRIVATE);
         retrieved_user = preferences.getString("USER","");
@@ -143,6 +146,15 @@ public class DashboardActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        option_favorite_menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), RecipesActivity.class);
+                ActivityOptions options = ActivityOptions.makeCustomAnimation(getApplicationContext(), R.anim.lefttoright, R.anim.fadeout);
+                startActivity(intent, options.toBundle());
             }
         });
     }

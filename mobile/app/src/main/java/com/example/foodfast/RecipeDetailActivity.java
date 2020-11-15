@@ -34,7 +34,7 @@ import androidx.core.content.ContextCompat;
 public class RecipeDetailActivity extends AppCompatActivity {
     private ProgressBar progress_recipe_detail;
     private RecipeModel recipe;
-    public Integer position;
+    public int position;
     protected TextView text_name_recipe_detail, text_description_recipe_detail, text_ingredients_recipe_detail, text_steps_recipe_detail;
     protected ImageView button_back_recipe_detail, recipe_detail_image, button_favorite_recipe_detail;
 
@@ -82,7 +82,12 @@ public class RecipeDetailActivity extends AppCompatActivity {
         button_back_recipe_detail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                 finish();
+                if (RecipesActivity.is_favorite && !recipe.getIs_favorite()) {
+                    RecipesActivity.recipes_data_response.remove(position);
+                    Objects.requireNonNull(RecipesActivity.recycler_view_recipes.getAdapter()).notifyItemRemoved(position);
+                }
+
+                finish();
             }
         });
 
@@ -111,9 +116,10 @@ public class RecipeDetailActivity extends AppCompatActivity {
                 RecipesActivity.recipes_data_response.get(position).setIs_favorite(false);
                 RecipesActivity.recipes_data_response.get(position).setFavorite_id("");
 
-                if (position != -1) {
-                    Objects.requireNonNull(RecipesActivity.recycler_view_recipes.getAdapter()).notifyItemChanged(position);
-                }
+                recipe.setIs_favorite(false);
+                recipe.setFavorite_id("");
+
+                Objects.requireNonNull(RecipesActivity.recycler_view_recipes.getAdapter()).notifyItemChanged(position);
 
                 button_favorite_recipe_detail.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_star_outlined));
             }
@@ -153,9 +159,10 @@ public class RecipeDetailActivity extends AppCompatActivity {
                     RecipesActivity.recipes_data_response.get(position).setIs_favorite(true);
                     RecipesActivity.recipes_data_response.get(position).setFavorite_id(response.getString("id"));
 
-                    if (position != -1) {
-                        Objects.requireNonNull(RecipesActivity.recycler_view_recipes.getAdapter()).notifyItemChanged(position);
-                    }
+                    recipe.setIs_favorite(true);
+                    recipe.setFavorite_id(response.getString("id"));
+
+                    Objects.requireNonNull(RecipesActivity.recycler_view_recipes.getAdapter()).notifyItemChanged(position);
 
                     button_favorite_recipe_detail.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_star_filled));
                 } catch (JSONException e) {

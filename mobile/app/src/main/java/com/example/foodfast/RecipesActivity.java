@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
@@ -49,6 +48,7 @@ public class RecipesActivity extends AppCompatActivity {
     protected LinearLayout frame_empty_recipes;
     protected NestedScrollView frame_non_empty_recipes;
     public static RecyclerView recycler_view_recipes;
+    public static Boolean is_favorite = false;
 
     protected String base_url = "https://foodfast.api-sact-test.com/";
     protected String retrieved_token;
@@ -82,6 +82,11 @@ public class RecipesActivity extends AppCompatActivity {
         } else if (search_recipe != null) {
             text_category_recipes.setText("Search result: " + search_recipe);
             text_main_recipes.setText("Recipes");
+        } else {
+            is_favorite = true;
+            text_category_recipes.setText("Favorite");
+            text_main_recipes.setText("Recipes");
+            text_empty_recipes.setText("No recipes...");
         }
 
         frame_empty_recipes = findViewById(R.id.frame_empty_recipes);
@@ -90,14 +95,17 @@ public class RecipesActivity extends AppCompatActivity {
         recycler_view_recipes = findViewById(R.id.recycler_view_recipes);
         recycler_view_recipes.setLayoutManager(new LinearLayoutManager(this));
 
-        load_recipes();
+        if (category_name != null || search_recipe != null) {
+            load_recipes();
+        } else {
+            load_favorite_recipes();
+        }
 
         button_back_recipes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
-                ActivityOptions options = ActivityOptions.makeCustomAnimation(getApplicationContext(), R.anim.righttoleft_2, R.anim.fadeout);
-                startActivity(intent, options.toBundle());
+                recipes_data_response = new ArrayList<>();
+                finish();
             }
         });
 
@@ -109,7 +117,12 @@ public class RecipesActivity extends AppCompatActivity {
                 if (frame_non_empty_recipes.getChildAt(0).getBottom() <= sum && recipes_data_response.size() >= 10 && previous_recipes_size < recipes_data_response.size()) {
                     previous_recipes_size = recipes_data_response.size();
                     current_page++;
-                    load_recipes();
+
+                    if (category_name != null || search_recipe != null) {
+                        load_recipes();
+                    } else {
+                        load_favorite_recipes();
+                    }
                 }
             }
         });
@@ -121,10 +134,10 @@ public class RecipesActivity extends AppCompatActivity {
 
         String custom_url;
 
-        if (search_recipe != null) {
-            custom_url = base_url + "recipes/all" + "?page=" + current_page.toString() + "&search=" + search_recipe;
-        } else {
+        if (category_name != null) {
             custom_url = base_url + "recipes/filtered/" + category_id + "?page=" + current_page.toString();
+        } else {
+            custom_url = base_url + "recipes/all" + "?page=" + current_page.toString() + "&search=" + search_recipe;
         }
 
         JsonArrayRequest jsObjRequest = new JsonArrayRequest(Request.Method.GET, custom_url, null,new Response.Listener<JSONArray>() {
@@ -184,7 +197,7 @@ public class RecipesActivity extends AppCompatActivity {
                     frame_non_empty_recipes.setVisibility(View.GONE);
                 }
 
-                load_favorite_recipes();
+                load_favorite_recipes_helper();
             }
         }, new Response.ErrorListener() {
             @Override
@@ -205,7 +218,7 @@ public class RecipesActivity extends AppCompatActivity {
         requestQueue.add(jsObjRequest);
     }
 
-    private void load_favorite_recipes() {
+    private void load_favorite_recipes_helper() {
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         show_progress();
 
@@ -235,6 +248,90 @@ public class RecipesActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 hide_progress();
                 Toast.makeText(getApplicationContext(), "An error occurred to load the user favorite recipes", Toast.LENGTH_SHORT).show();
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Content-Type", "application/json");
+                headers.put("Authorization", "Bearer " + retrieved_token);
+                return headers;
+            }
+        };
+
+        requestQueue.add(jsObjRequest);
+    }
+
+    private void load_favorite_recipes() {
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        show_progress();
+
+        JsonArrayRequest jsObjRequest = new JsonArrayRequest(Request.Method.GET, base_url + "user-favorites", null,new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                hide_progress();
+                try {
+                    for (int index=0; index<response.length(); index++){
+                        JSONObject user_favorite = (JSONObject) response.get(index);
+                        JSONObject recipe = (JSONObject) user_favorite.get("recipe");
+
+                        String id = recipe.getString("id");
+                        String name = recipe.getString("name");
+                        String description = recipe.getString("description");
+                        String ingredients = recipe.getString("ingredients");
+                        String steps = recipe.getString("steps");
+                        String video_url = recipe.getString("video_url");
+                        String image_url = "";
+
+                        if (recipe.has("image_url")) {
+                            image_url = recipe.getString("image_url");
+                        }
+
+                        RecipeModel recipeModel = new RecipeModel(id, image_url, name, description, ingredients, steps, video_url);
+
+                        boolean found = false;
+
+                        for (RecipeModel aux_recipe: recipes_data_response) {
+                            if (aux_recipe.getId().equals(recipeModel.getId())) {
+                                found = true;
+                                break;
+                            }
+                        }
+
+                        if (!found) {
+                            recipeModel.setFavorite_id(user_favorite.getString("id"));
+                            recipeModel.setIs_favorite(true);
+
+                            recipes_data_response.add(recipeModel);
+
+                            if (previous_recipes_size != 0) {
+                                Objects.requireNonNull(recycler_view_recipes.getAdapter()).notifyItemInserted(recipes_data_response.size() - 1);
+                            }
+                        }
+                    }
+                } catch (JSONException e) {
+                    Toast.makeText(getApplicationContext(), "An error occurred", Toast.LENGTH_SHORT).show();
+                }
+
+                if (previous_recipes_size == 0) {
+                    final RecipeAdapter adapter = new RecipeAdapter(recipes_data_response);
+                    recycler_view_recipes.setAdapter(adapter);
+                }
+
+                if (recipes_data_response.size() == 0) {
+                    Animation animation_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fadein_2);
+                    Animation animation_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fadeout_2);
+                    frame_empty_recipes.startAnimation(animation_in);
+                    frame_non_empty_recipes.startAnimation(animation_out);
+                    frame_empty_recipes.setVisibility(View.VISIBLE);
+                    frame_non_empty_recipes.setVisibility(View.GONE);
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                hide_progress();
+                Toast.makeText(getApplicationContext(), "An error occurred to load the recipes", Toast.LENGTH_SHORT).show();
             }
         }) {
             @Override
