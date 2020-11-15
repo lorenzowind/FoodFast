@@ -1,10 +1,15 @@
 package com.example.foodfast.Recipe;
 
+import android.app.ActivityOptions;
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.foodfast.R;
+import com.example.foodfast.RecipeDetailActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -34,15 +39,19 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeHolder> {
     @Override
     public void onBindViewHolder(RecipeHolder holder, int position) {
         holder.name.setText(recipes.get(position).getName());
-        holder.recipe = recipes.get(position);
+        holder.position = position;
 
-        if (holder.recipe.getIs_favorite()) {
+        if (recipes.get(position).getIs_favorite()) {
             holder.layout.setBackground(ContextCompat.getDrawable(context, R.drawable.background_recipe_2));
+        } else {
+            holder.layout.setBackground(ContextCompat.getDrawable(context, R.drawable.background_recipe));
         }
 
-        if (!holder.recipe.getImage_url().equals("null")) {
-            Picasso.get().load(recipes.get(position).getImage_url()).into(holder.image);
-        }
+        Picasso.get()
+                .load(recipes.get(position).getImage_url())
+                .placeholder(R.drawable.ic_default_image)
+                .error(R.drawable.ic_default_image)
+                .into(holder.image);
     }
 
     @Override

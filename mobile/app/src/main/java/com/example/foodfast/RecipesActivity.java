@@ -48,12 +48,12 @@ public class RecipesActivity extends AppCompatActivity {
 
     protected LinearLayout frame_empty_recipes;
     protected NestedScrollView frame_non_empty_recipes;
-    private RecyclerView recycler_view_recipes;
+    public static RecyclerView recycler_view_recipes;
 
     protected String base_url = "https://foodfast.api-sact-test.com/";
     protected String retrieved_token;
 
-    public ArrayList<RecipeModel> recipes_data_response = new ArrayList<>();
+    public static ArrayList<RecipeModel> recipes_data_response = new ArrayList<>();
     private Integer previous_recipes_size = 0, current_page = 1;
 
     @Override
@@ -162,7 +162,7 @@ public class RecipesActivity extends AppCompatActivity {
                             recipes_data_response.add(recipeModel);
 
                             if (previous_recipes_size != 0) {
-                                Objects.requireNonNull(recycler_view_recipes.getAdapter()).notifyDataSetChanged();
+                                Objects.requireNonNull(recycler_view_recipes.getAdapter()).notifyItemInserted(recipes_data_response.size() - 1);
                             }
                         }
                     }

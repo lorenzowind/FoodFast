@@ -32,9 +32,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryHolder> {
         holder.id = categories.get(position).getId();
         holder.name.setText(categories.get(position).getName());
 
-        if (!categories.get(position).getImage_url().equals("null")) {
-            Picasso.get().load(categories.get(position).getImage_url()).into(holder.image);
-        }
+        Picasso.get()
+                .load(categories.get(position).getImage_url())
+                .placeholder(R.drawable.ic_default_image)
+                .error(R.drawable.ic_default_image)
+                .into(holder.image);
     }
 
     @Override

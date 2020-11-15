@@ -8,17 +8,14 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.foodfast.Category.CategoryModel;
 import com.example.foodfast.R;
 import com.example.foodfast.RecipeDetailActivity;
-import com.google.gson.Gson;
 
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class RecipeHolder extends RecyclerView.ViewHolder {
     public Context context;
-    public RecipeModel recipe;
+    public Integer position;
 
     public FrameLayout layout;
     public ImageView image;
@@ -35,11 +32,8 @@ public class RecipeHolder extends RecyclerView.ViewHolder {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Gson gson = new Gson();
-                String recipe_json = gson.toJson(recipe);
-
                 Intent intent = new Intent(context.getApplicationContext(), RecipeDetailActivity.class);
-                intent.putExtra("EXTRA_RECIPE", recipe_json);
+                intent.putExtra("EXTRA_RECIPE_POSITION", position);
                 ActivityOptions options = ActivityOptions.makeCustomAnimation(context, R.anim.lefttoright, R.anim.fadeout);
                 context.startActivity(intent, options.toBundle());
             }

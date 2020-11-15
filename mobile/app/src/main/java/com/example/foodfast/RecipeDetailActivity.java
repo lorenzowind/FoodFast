@@ -3,7 +3,6 @@ package com.example.foodfast;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -13,7 +12,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
-import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -21,7 +19,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.foodfast.Recipe.RecipeModel;
-import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -29,13 +26,15 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 public class RecipeDetailActivity extends AppCompatActivity {
     private ProgressBar progress_recipe_detail;
-    protected RecipeModel recipe;
+    private RecipeModel recipe;
+    public Integer position;
     protected TextView text_name_recipe_detail, text_description_recipe_detail, text_ingredients_recipe_detail, text_steps_recipe_detail;
     protected ImageView button_back_recipe_detail, recipe_detail_image, button_favorite_recipe_detail;
 
@@ -52,8 +51,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
 
         progress_recipe_detail = findViewById(R.id.progress_recipe_detail);
 
-        Gson gson = new Gson();
-        recipe = gson.fromJson(getIntent().getStringExtra("EXTRA_RECIPE"), RecipeModel.class);
+        position = getIntent().getIntExtra("EXTRA_RECIPE_POSITION", -1);
 
         text_name_recipe_detail = findViewById(R.id.text_name_recipe_detail);
         text_description_recipe_detail = findViewById(R.id.text_description_recipe_detail);
@@ -63,6 +61,8 @@ public class RecipeDetailActivity extends AppCompatActivity {
         button_back_recipe_detail = findViewById(R.id.button_back_recipe_detail);
         recipe_detail_image = findViewById(R.id.recipe_detail_image);
         button_favorite_recipe_detail = findViewById(R.id.button_favorite_recipe_detail);
+
+        recipe = RecipesActivity.recipes_data_response.get(position);
 
         if (recipe != null) {
             text_name_recipe_detail.setText(recipe.getName());
@@ -108,6 +108,13 @@ public class RecipeDetailActivity extends AppCompatActivity {
             @Override
             public void onResponse(JSONObject response) {
                 hide_progress();
+                RecipesActivity.recipes_data_response.get(position).setIs_favorite(false);
+                RecipesActivity.recipes_data_response.get(position).setFavorite_id("");
+
+                if (position != -1) {
+                    Objects.requireNonNull(RecipesActivity.recycler_view_recipes.getAdapter()).notifyItemChanged(position);
+                }
+
                 button_favorite_recipe_detail.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_star_outlined));
             }
         }, new Response.ErrorListener() {
@@ -143,8 +150,12 @@ public class RecipeDetailActivity extends AppCompatActivity {
             public void onResponse(JSONObject response) {
                 hide_progress();
                 try {
-                    recipe.setIs_favorite(true);
-                    recipe.setFavorite_id(response.getString("id"));
+                    RecipesActivity.recipes_data_response.get(position).setIs_favorite(true);
+                    RecipesActivity.recipes_data_response.get(position).setFavorite_id(response.getString("id"));
+
+                    if (position != -1) {
+                        Objects.requireNonNull(RecipesActivity.recycler_view_recipes.getAdapter()).notifyItemChanged(position);
+                    }
 
                     button_favorite_recipe_detail.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_star_filled));
                 } catch (JSONException e) {
