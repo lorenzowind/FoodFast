@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
@@ -12,7 +13,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +36,7 @@ import java.util.Map;
 import java.util.Objects;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -46,7 +47,7 @@ public class RecipesActivity extends AppCompatActivity {
     protected String category_id, category_name, search_recipe;
 
     protected LinearLayout frame_empty_recipes;
-    protected ScrollView frame_non_empty_recipes;
+    protected NestedScrollView frame_non_empty_recipes;
     private RecyclerView recycler_view_recipes;
 
     protected String base_url = "https://foodfast.api-sact-test.com/";
@@ -182,12 +183,57 @@ public class RecipesActivity extends AppCompatActivity {
                     frame_empty_recipes.setVisibility(View.VISIBLE);
                     frame_non_empty_recipes.setVisibility(View.GONE);
                 }
+
+                load_favorite_recipes();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 hide_progress();
                 Toast.makeText(getApplicationContext(), "An error occurred to load the recipes", Toast.LENGTH_SHORT).show();
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Content-Type", "application/json");
+                headers.put("Authorization", "Bearer " + retrieved_token);
+                return headers;
+            }
+        };
+
+        requestQueue.add(jsObjRequest);
+    }
+
+    private void load_favorite_recipes() {
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        show_progress();
+
+        JsonArrayRequest jsObjRequest = new JsonArrayRequest(Request.Method.GET, base_url + "user-favorites", null,new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                hide_progress();
+                try {
+                    for (int index=0; index<response.length(); index++){
+                        JSONObject user_favorite = (JSONObject) response.get(index);
+
+                        for (int position=0; position<recipes_data_response.size(); position++) {
+                            if (recipes_data_response.get(position).getId().equals(user_favorite.getString("recipe_id"))) {
+                                recipes_data_response.get(position).setIs_favorite(true);
+                                Objects.requireNonNull(recycler_view_recipes.getAdapter()).notifyItemChanged(position);
+                                break;
+                            }
+                        }
+                    }
+                } catch (JSONException e) {
+                    Toast.makeText(getApplicationContext(), "An error occurred", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                hide_progress();
+                Toast.makeText(getApplicationContext(), "An error occurred to load the user favorite recipes", Toast.LENGTH_SHORT).show();
             }
         }) {
             @Override

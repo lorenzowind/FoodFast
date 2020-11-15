@@ -132,20 +132,27 @@
                     android:textStyle="bold"
                     android:textSize="20sp"/>
 
-                <HorizontalScrollView
+                <androidx.core.widget.NestedScrollView
                     android:id="@+id/frame_non_empty_categories"
                     android:layout_width="match_parent"
                     android:layout_height="272dp"
+                    android:layout_marginVertical="16dp"
                     android:scrollbars="none"
-                    android:layout_marginVertical="16dp">
+                    android:overScrollMode="never">
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recycler_view_categories"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:orientation="horizontal"
-                        tools:listitem="@layout/category_item" />
-                </HorizontalScrollView>
+                        android:orientation="horizontal">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recycler_view_categories"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+
+                            tools:listitem="@layout/category_item" />
+                    </LinearLayout>
+                </androidx.core.widget.NestedScrollView>
             </LinearLayout>
         </ScrollView>
     </RelativeLayout>

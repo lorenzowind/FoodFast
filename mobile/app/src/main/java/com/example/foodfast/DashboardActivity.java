@@ -5,12 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
-import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -36,6 +34,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -46,7 +45,7 @@ public class DashboardActivity extends AppCompatActivity {
     protected TextView text_logout_menu, text_username_dashboard, text_email_menu, text_username_menu;
     protected EditText search_dashboard;
 
-    protected HorizontalScrollView frame_non_empty_categories;
+    protected NestedScrollView frame_non_empty_categories;
     private RecyclerView recycler_view_categories;
 
     private String base_url = "https://foodfast.api-sact-test.com/";

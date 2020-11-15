@@ -9,6 +9,8 @@ public class RecipeModel {
     private String steps;
     private String video_url;
 
+    private Boolean is_favorite;
+
     public RecipeModel(String id, String image_url, String name, String description, String ingredients, String steps, String video_url) {
         this.id = id;
         this.image_url = image_url;
@@ -17,6 +19,7 @@ public class RecipeModel {
         this.ingredients = ingredients;
         this.steps = steps;
         this.video_url = video_url;
+        this.is_favorite = false;
     }
 
     public String getId() {
@@ -73,5 +76,13 @@ public class RecipeModel {
 
     public void setVideo_url(String video_url) {
         this.video_url = video_url;
+    }
+
+    public Boolean getIs_favorite() {
+        return is_favorite;
+    }
+
+    public void setIs_favorite(Boolean is_favorite) {
+        this.is_favorite = is_favorite;
     }
 }

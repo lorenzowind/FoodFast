@@ -1,26 +1,28 @@
 package com.example.foodfast.Recipe;
 
-import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.foodfast.R;
-import com.example.foodfast.RecipesActivity;
 
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class RecipeHolder extends RecyclerView.ViewHolder {
     public Context context;
     public RecipeModel recipe;
+    public FrameLayout layout;
     public ImageView image;
     public TextView name;
     public ImageView button;
 
     public RecipeHolder(View itemView) {
         super(itemView);
+        layout = itemView.findViewById(R.id.frame_recipe_model);
         image = itemView.findViewById(R.id.recipe_image);
         name = itemView.findViewById(R.id.recipe_name);
         button = itemView.findViewById(R.id.recipe_button);
