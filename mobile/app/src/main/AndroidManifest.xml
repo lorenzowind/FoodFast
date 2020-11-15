@@ -15,9 +15,8 @@
         android:usesCleartextTraffic="true">
 
         <activity android:name=".DashboardActivity" />
-
         <activity android:name=".RecipesActivity" />
-
+        <activity android:name=".RecipeDetailActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

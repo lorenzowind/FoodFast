@@ -27,7 +27,7 @@ export default class UserFavoritesController {
 
     await deleteUserFavorite.execute(id);
 
-    return response.status(200).send();
+    return response.json({ status: 200 });
   }
 
   public async show(request: Request, response: Response): Promise<Response> {

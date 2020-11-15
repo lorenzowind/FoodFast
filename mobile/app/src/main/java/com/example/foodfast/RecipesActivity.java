@@ -44,7 +44,7 @@ public class RecipesActivity extends AppCompatActivity {
     private ProgressBar progress_recipes;
     protected ImageView button_back_recipes;
     protected TextView text_category_recipes, text_main_recipes, text_empty_recipes;
-    protected String category_id, category_name, search_recipe;
+    public String category_id, category_name, search_recipe;
 
     protected LinearLayout frame_empty_recipes;
     protected NestedScrollView frame_non_empty_recipes;
@@ -53,7 +53,7 @@ public class RecipesActivity extends AppCompatActivity {
     protected String base_url = "https://foodfast.api-sact-test.com/";
     protected String retrieved_token;
 
-    private ArrayList<RecipeModel> recipes_data_response = new ArrayList<>();
+    public ArrayList<RecipeModel> recipes_data_response = new ArrayList<>();
     private Integer previous_recipes_size = 0, current_page = 1;
 
     @Override
@@ -220,6 +220,7 @@ public class RecipesActivity extends AppCompatActivity {
                         for (int position=0; position<recipes_data_response.size(); position++) {
                             if (recipes_data_response.get(position).getId().equals(user_favorite.getString("recipe_id"))) {
                                 recipes_data_response.get(position).setIs_favorite(true);
+                                recipes_data_response.get(position).setFavorite_id(user_favorite.getString("id"));
                                 Objects.requireNonNull(recycler_view_recipes.getAdapter()).notifyItemChanged(position);
                                 break;
                             }
