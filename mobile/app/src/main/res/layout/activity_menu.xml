@@ -53,7 +53,9 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="end"
-        android:layout_centerInParent="true">
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="64dp"
+        android:layout_below="@id/layout_header">
 
         <LinearLayout
             android:id="@+id/option_favorite_menu"
@@ -77,28 +79,28 @@
                 android:src="@drawable/ic_star" />
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/option_profile_menu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="16dp">
+<!--        <LinearLayout-->
+<!--            android:id="@+id/option_profile_menu"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:layout_marginTop="16dp">-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="60dp"
-                android:gravity="center"
-                android:text="Profile"
-                android:textColor="#fff"
-                android:textStyle="bold"
-                android:textSize="24sp"/>
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="60dp"-->
+<!--                android:gravity="center"-->
+<!--                android:text="Profile"-->
+<!--                android:textColor="#fff"-->
+<!--                android:textStyle="bold"-->
+<!--                android:textSize="24sp"/>-->
 
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="60dp"
-                android:layout_marginStart="16dp"
-                android:src="@drawable/ic_person" />
-        </LinearLayout>
+<!--            <ImageView-->
+<!--                android:layout_width="30dp"-->
+<!--                android:layout_height="60dp"-->
+<!--                android:layout_marginStart="16dp"-->
+<!--                android:src="@drawable/ic_person" />-->
+<!--        </LinearLayout>-->
     </LinearLayout>
 
     <LinearLayout

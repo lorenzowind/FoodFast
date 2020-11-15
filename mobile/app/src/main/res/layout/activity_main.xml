@@ -129,40 +129,6 @@
                 android:textStyle="bold"
                 android:breakStrategy="simple"
                 android:layout_weight="1"/>
-
-<!--            <LinearLayout-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:orientation="vertical">-->
-
-<!--                <RelativeLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginBottom="5dp">-->
-
-<!--                    <RelativeLayout-->
-<!--                        android:id="@+id/button_upload"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:background="@drawable/background_profile"-->
-<!--                        android:padding="15dp"-->
-<!--                        android:layout_centerHorizontal="true">-->
-
-<!--                        <ImageView-->
-<!--                            android:layout_height="30dp"-->
-<!--                            android:layout_width="30dp"-->
-<!--                            android:src="@drawable/ic_camera" />-->
-<!--                    </RelativeLayout>-->
-<!--                </RelativeLayout>-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="Upload picture"-->
-<!--                    android:textColor="#000"-->
-<!--                    android:textSize="16sp"-->
-<!--                    android:alpha="0.5"/>-->
-<!--            </LinearLayout>-->
         </LinearLayout>
 
         <LinearLayout
@@ -302,25 +268,6 @@
                 android:textStyle="bold"
                 android:breakStrategy="simple"
                 android:layout_weight="1"/>
-
-<!--            <RelativeLayout-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="70dp"-->
-<!--                android:orientation="vertical">-->
-
-<!--                <RelativeLayout-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:background="@drawable/background_profile"-->
-<!--                    android:padding="15dp"-->
-<!--                    android:layout_centerHorizontal="true">-->
-
-<!--                    <ImageView-->
-<!--                        android:layout_height="30dp"-->
-<!--                        android:layout_width="30dp"-->
-<!--                        android:src="@drawable/ic_user" />-->
-<!--                </RelativeLayout>-->
-<!--            </RelativeLayout>-->
         </LinearLayout>
 
         <LinearLayout
@@ -385,13 +332,13 @@
                         android:paddingBottom="15dp"/>
                 </RelativeLayout>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Forgot Password?"
-                    android:textColor="#36d2ee"
-                    android:textSize="16sp"
-                    android:textAlignment="textEnd"/>
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Forgot Password?"-->
+<!--                    android:textColor="#36d2ee"-->
+<!--                    android:textSize="16sp"-->
+<!--                    android:textAlignment="textEnd"/>-->
 
                 <Button
                     android:id="@+id/button_signin_popup"
@@ -409,4 +356,89 @@
         </LinearLayout>
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/popup_forgot_password"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_popup_2"
+        android:layout_alignParentTop="true"
+        android:paddingHorizontal="40dp"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/button_close_forgot_password"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="end"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/ic_close"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:text="Forgot Password"
+                android:textColor="#000"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:breakStrategy="simple"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_mail"
+                        android:layout_marginTop="5dp"
+                        android:contentDescription="Mail icon" />
+
+                    <EditText
+                        android:id="@+id/mail_signin"
+                        android:layout_height="50dp"
+                        android:layout_width="match_parent"
+                        android:autofillHints=""
+                        android:hint="Mail"
+                        android:inputType="textEmailAddress"
+                        android:backgroundTint="#36d2ee"
+                        android:paddingStart="45dp"
+                        android:paddingEnd="0dp"
+                        android:textSize="20sp"
+                        android:paddingBottom="15dp"/>
+                </RelativeLayout>
+
+                <Button
+                    android:id="@+id/button_forgot_password_popup"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:textAllCaps="false"
+                    android:text="Send"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:textColor="#fff"
+                    android:background="@drawable/button_signup"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
 </RelativeLayout>
