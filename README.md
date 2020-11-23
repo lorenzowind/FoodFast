@@ -1,10 +1,42 @@
-# FoodFast
+<p align="center">
+  <a href="https://github.com/lorenzowind/UBEMath">
+    <img src="logo.png" alt="Logo" height="180">
+  </a>
+
+  <h3 align="center">FoodFast</h3>
+
+  <p align="center">
+    Aplicação para automação da consulta de receitas!
+    <br />
+    <a href="https://app.swaggerhub.com/apis/lorenzomart/FoodFast/1.0.0"><strong>Explore a API Spec »</strong></a>
+    <br />
+    <br />
+    <a href="https://drive.google.com/file/d/1FJsNBRTJWbB021RdT3WTdYrKnd-IArTM/view?usp=sharing">Baixe agora</a>
+    ·
+    <a href="https://github.com/lorenzowind/FoodFast/issues/new">Report Bug</a>
+    ·
+    <a href="https://github.com/lorenzowind/FoodFast/issues/new">Request Feature</a>
+  </p>
+</p>
+
+## Sumário
+* [O que é?](#O-que-é?)
+  * [Justificativa](#Justificativa)
+  * [Funcionalidades](#Funcionalidades)
+* [Qual o público alvo?](#Qual-o-público-alvo?)
+* [Quem faz parte da equipe e o papel de cada?](#Quem-faz-parte-da-equipe-e-o-papel-de-cada?)
+* [Como baixar?](#Como-baixar?)
+* [Como instalar?](#Como-instalar?)
+* [Tecnologias](#Tecnologias)
+
 ## O que é?
-- O projeto FoodFast consiste em uma aplicação Android para consultar receitas e gerenciar o inventário de comida da própria casa.
+- O projeto FoodFast consiste em uma aplicação Android para consultar e favoritar receitas.
+
 ### Justificativa
 - O projeto foi baseado na compreensão de uma determinada dificuldade para organizar e ter o controle da comida disponível na cozinha.
 - E muitas pessoas não possuem o conhecimento de uma grande variedade de receitas e desconhecem os ingredientes necessários.
 - Além de que o gasto excessivo no mercado reflete no grande armazenamento de comida e o desperdício é gerado.
+
 ### Funcionalidades
 - Inventário com toda a comida que o usuário possui na cozinha, dividido em diversas categorias.
 - Cadastro da comida manualmente de acordo com diversos atributos (opcionais) - quantidade, marca, validade, etc.
@@ -13,18 +45,22 @@
 - Receitas possíveis e não possíveis com base na disponibilidade dos ingredientes do inventário do usuário.
 - Receitas favoritas definidas pelo usuário.
 - Receitas filtradas por categorias (favoritas, baixa caloria, vegetarianas, etc).
+
 ## Qual o público alvo?
 - Pessoas com dificuldade de organização da comida, falta de conhecimento em receitas e desejo de uma rotina com alimentação saúdavel.
+
 ## Quem faz parte da equipe e o papel de cada?
 - Lorenzo Windmoller Martins (Desenvolvedor)
 - Samuel Albuquerque de Paiva (Designer)
-- Vinícius Andrade Perrone (Analista)
+- Vinícius Andrade Perrone (Desenvolvedor)
+
 ## Como baixar?
 - Para baixar o projeto execute o comando:
 ```bash
 // Clonar o repositório da aplicação
 $ git clone https://github.com/lorenzowind/FoodFast.git
 ```
+
 ## Como instalar?
 1. Para rodar o backend siga os seguintes passos:
 - Navegue até a pasta do backend e instale as dependências:
