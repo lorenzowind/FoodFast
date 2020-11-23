@@ -13,9 +13,9 @@
     <br />
     <a href="https://drive.google.com/file/d/1FJsNBRTJWbB021RdT3WTdYrKnd-IArTM/view?usp=sharing">Baixe agora</a>
     ·
-    <a href="https://github.com/lorenzowind/FoodFast/issues/new">Report Bug</a>
+    <a href="https://github.com/lorenzowind/FoodFast/issues/new">Reporte bug</a>
     ·
-    <a href="https://github.com/lorenzowind/FoodFast/issues/new">Request Feature</a>
+    <a href="https://github.com/lorenzowind/FoodFast/issues/new">Requisite funcionalidade</a>
   </p>
 </p>
 
