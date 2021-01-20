@@ -1,3 +1,8 @@
+[![Contributors][contributors-shield]][contributors-url]
+[![Issues][issues-shield]][issues-url]
+![size-shield]
+![commit-shield]
+
 <p align="center">
   <a href="https://github.com/lorenzowind/UBEMath">
     <img src="logo.png" alt="Logo" height="180">
@@ -6,115 +11,138 @@
   <h3 align="center">FoodFast</h3>
 
   <p align="center">
-    Aplicação para automação da consulta de receitas!
+    Application for automation of the query of recipes!
     <br />
-    <a href="https://app.swaggerhub.com/apis/lorenzomart/FoodFast/1.0.0"><strong>Explore a API Spec »</strong></a>
+    <a href="https://app.swaggerhub.com/apis/lorenzomart/FoodFast/1.0.0"><strong>Explore the API Spec »</strong></a>
     <br />
     <br />
-    <a href="https://drive.google.com/file/d/1FJsNBRTJWbB021RdT3WTdYrKnd-IArTM/view?usp=sharing">Baixe agora</a>
+    <a href="https://drive.google.com/file/d/1FJsNBRTJWbB021RdT3WTdYrKnd-IArTM/view?usp=sharing">Download now</a>
     ·
     <a href="https://github.com/lorenzowind/FoodFast/issues/new">Reporte bug</a>
     ·
-    <a href="https://github.com/lorenzowind/FoodFast/issues/new">Requisite funcionalidade</a>
+    <a href="https://github.com/lorenzowind/FoodFast/issues/new">Request Feature</a>
   </p>
 </p>
 
-## Sumário
-* [O que é?](#O-que-é?)
-  * [Justificativa](#Justificativa)
-  * [Funcionalidades](#Funcionalidades)
-* [Qual o público alvo?](#Qual-o-público-alvo?)
-* [Quem faz parte da equipe e o papel de cada?](#Quem-faz-parte-da-equipe-e-o-papel-de-cada?)
-* [Como baixar?](#Como-baixar?)
-* [Como instalar?](#Como-instalar?)
-* [Tecnologias](#Tecnologias)
+## Table of Contents
+* [About the Project](#about-the-project)
+  * [Justification](#justification)
+  * [Features](#features)
+* [Target](#target)
+* [Team](#Team)
+* [How to download?](#how-to-download?)
+* [How to install?](#how-to-install?)
+* [Built With](#built-with)
+* [Contact](#contact)
+* [Acknowledgements](#acknowledgements)
 
-## O que é?
-- O projeto FoodFast consiste em uma aplicação Android para consultar e favoritar receitas.
+## About The Project
+- The FoodFast project consists of an Android application to consult and favor recipes.
 
-### Justificativa
-- O projeto foi baseado na compreensão de uma determinada dificuldade para organizar e ter o controle da comida disponível na cozinha.
-- E muitas pessoas não possuem o conhecimento de uma grande variedade de receitas e desconhecem os ingredientes necessários.
-- Além de que o gasto excessivo no mercado reflete no grande armazenamento de comida e o desperdício é gerado.
+### Justification
+- The project was based on the understanding of a certain difficulty in organizing and having control of the food available in the kitchen.
+- And many people do not have the knowledge of a wide variety of recipes and are unaware of the necessary ingredients.
+- In addition to the fact that excessive spending on the market is reflected in the large storage of food and waste is generated.
 
-### Funcionalidades
-- Inventário com toda a comida que o usuário possui na cozinha, dividido em diversas categorias.
-- Cadastro da comida manualmente de acordo com diversos atributos (opcionais) - quantidade, marca, validade, etc.
-- Consulta de receitas.
-- Publicação de receitas.
-- Receitas possíveis e não possíveis com base na disponibilidade dos ingredientes do inventário do usuário.
-- Receitas favoritas definidas pelo usuário.
-- Receitas filtradas por categorias (favoritas, baixa caloria, vegetarianas, etc).
+### Features
+- Inventory with all the food the user has in the kitchen, divided into several categories.
+- Registration of food manually according to several attributes (optional) - quantity, brand, validity, etc.
+- Consultation of recipes.
+- Publication of recipes.
+- Possible and not possible recipes based on the availability of ingredients from the user's inventory.
+- User-defined favorite recipes.
+- Recipes filtered by categories (favorites, low calorie, vegetarian, etc).
 
-## Qual o público alvo?
-- Pessoas com dificuldade de organização da comida, falta de conhecimento em receitas e desejo de uma rotina com alimentação saúdavel.
+## Target
+- People with difficulty organizing food, lack of knowledge in recipes and desire for a healthy eating routine.
 
-## Quem faz parte da equipe e o papel de cada?
-- Lorenzo Windmoller Martins (Desenvolvedor)
+## Team
+- Lorenzo Windmoller Martins (Developer)
 - Samuel Albuquerque de Paiva (Designer)
-- Vinícius Andrade Perrone (Desenvolvedor)
+- Vinícius Andrade Perrone (Developer)
 
-## Como baixar?
-- Para baixar o projeto execute o comando:
+## How to download?
+- To download the project, execute the command:
 ```bash
-// Clonar o repositório da aplicação
+// Clone the application repository
 $ git clone https://github.com/lorenzowind/FoodFast.git
 ```
 
-## Como instalar?
-1. Para rodar o backend siga os seguintes passos:
-- Navegue até a pasta do backend e instale as dependências:
+## How to install?
+1. To run the backend, follow these steps:
+- Navigate to the backend folder and install the dependencies:
 ```bash
-// Navegar até a pasta backend
+// Navigate to the backend folder
 $ cd backend
 
-// Instalar as dependências da aplicação
+// Install application dependencies
 $ yarn
 ```
-- Instale as imagens Docker do MySQL, MongoDB, Redis e Adminer usando docker-compose:
+- Install MySQL, MongoDB, Redis and Adminer Docker images using docker-compose:
 ```bash
-// Rodar as imagens do Docker
+// Run the Docker images
 $ docker-compose up -d
 ```
-- Crie um arquivo chamado .env com base no .env.example e insira as credenciais da AWS;
-- Crie um arquivo chamado .ormconfig.json com base no .ormconfig.example.json e insira o host e porta do MySQL e MongoDB de acordo com as imagens Docker instaladas anteriormente, além de trocar o destinatário src por dist e .ts por .js;
-- Configure as credenciais da imagem Docker do MySQL através dos seguintes comandos:
+- Create a file called .env based on .env.example and enter your AWS credentials;
+- Create a file called .ormconfig.json based on .ormconfig.example.json and insert the MySQL and MongoDB host and port according to the previously installed Docker images, in addition to exchanging the src recipient for dist and .ts for .js;
+- Configure the credentials of the MySQL Docker image using the following commands:
 ```bash
-// Entrar no bash da imagem MySQL
+// Enter the MySQL image bash
 $ docker exec -it NOME_DA_IMAGEM bash
-// Entrar no root da imagem MySQL
+// Enter the MySQL image root
 $ mysql -u root -p
-// Alterar a senha de acesso
+// Change the password
 $ ALTER USER root IDENTIFIED WITH mysql_native_password BY ‘SENHA_DO_USUÁRIO_ROOT’;
 ```
-- Rode as migrations do banco de dados através do comando:
+- Run the database migrations using the command:
 ```bash
-// Rodar as migrations
+// Run the migrations
 $ node_modules/.bin/typeorm migration:run
 ```
-- Adicione configuração de não auto-reinicialização para cada imagem Docker através do comando:
+- Add a no-restart configuration for each Docker image using the command:
 ```bash
-// Alterar a configuração das imagens Docker
+// Change the configuration of the Docker images
 $ docker update --restart=unless-stopped ID_DA_IMAGEM
 ```
-- Inicie o servidor através do comando:
+- Start the server using the command:
 ```bash
-// Iniciar o servidor
+// Start the server
 $ yarn dev:server
 ```
-2. Para instalar a aplicação em algum dispositivo siga os seguintes passos:
-- Navegue até a localização do arquivo .apk e abra no dispositivo
+2. To install the application on any device, follow these steps:
+- Navigate to the location of the .apk file and open it on the device
 ```bash
-// Navegar até o arquivo .apk
+// Navigate to the .apk file
 $ cd mobile/app/build/outputs/apk
 ```
-## Tecnologias
-- O backend da aplicação foi desenvolvido utilizando as seguintes tecnologias:
+## Built With
+- The application's backend was developed using the following technologies:
   - [Node.js](https://nodejs.org/en/)
   - [Express](https://expressjs.com/pt-br/)
   - [MySQL](https://www.mysql.com/)
   - [MongoDB](https://www.mongodb.com/)
   - [Redis](https://redis.io/)
-- O aplicação mobile foi desenvolvida utilizando as seguintes tecnologias:
+- The application's mobile was developed using the following technologies:
   - [Android](https://www.android.com/intl/pt-BR_br/)
   - [Volley](https://developer.android.com/training/volley)
+
+## Contact
+Lorenzo Windmoller Martins - [LinkedIn](https://www.linkedin.com/in/lorenzo-windmoller-martins/) - lorenzomart01@gmail.com
+
+Samuel Albuquerque de Paiva - samycaaa@gmail.com
+
+Vinícius Andrade Perrone - [LinkedIn](https://www.linkedin.com/in/vin%C3%ADcius-perrone-2484001b1/) - perronevinicius2018@gmail.com
+
+## Acknowledgements
+* [README Template by othneildrew](https://github.com/othneildrew/Best-README-Template)
+* [Img Shields](https://shields.io)
+
+[contributors-shield]: https://img.shields.io/github/contributors/lorenzowind/FoodFast?style=flat-square
+[contributors-url]: https://github.com/lorenzowind/FoodFast/graphs/contributors
+
+[issues-shield]: https://img.shields.io/github/issues/lorenzowind/FoodFast?style=flat-square
+[issues-url]: https://github.com/lorenzowind/FoodFast/issues
+
+[size-shield]: https://img.shields.io/github/repo-size/lorenzowind/FoodFast?style=flat-square
+
+[commit-shield]: https://img.shields.io/github/last-commit/lorenzowind/FoodFast?style=flat-square
