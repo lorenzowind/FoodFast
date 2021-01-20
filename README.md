@@ -30,8 +30,8 @@
   * [Features](#features)
 * [Target](#target)
 * [Team](#Team)
-* [How to download?](#how-to-download?)
-* [How to install?](#how-to-install?)
+* [How to download?](#how-to-download)
+* [How to install?](#how-to-install)
 * [Built With](#built-with)
 * [Contact](#contact)
 * [Acknowledgements](#acknowledgements)
@@ -88,11 +88,11 @@ $ docker-compose up -d
 - Configure the credentials of the MySQL Docker image using the following commands:
 ```bash
 // Enter the MySQL image bash
-$ docker exec -it NOME_DA_IMAGEM bash
+$ docker exec -it IMAGE_NAME bash
 // Enter the MySQL image root
 $ mysql -u root -p
 // Change the password
-$ ALTER USER root IDENTIFIED WITH mysql_native_password BY ‘SENHA_DO_USUÁRIO_ROOT’;
+$ ALTER USER root IDENTIFIED WITH mysql_native_password BY ‘ROOT_USER_PASSWORD’;
 ```
 - Run the database migrations using the command:
 ```bash
